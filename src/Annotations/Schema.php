@@ -17,18 +17,13 @@ class Schema implements JsonSchemaInterface
     private $required = [];
 
     /**
-     * @var bool
-     */
-    private $additionalProperties = false;
-
-    /**
      * @var string
      */
     private $type = 'object';
 
     public function __construct(array $params)
     {
-        foreach (['required', 'additionalProperties', 'type', 'schema'] as $target) {
+        foreach (['required', 'schema'] as $target) {
             if (isset($params[$target])) {
                 $this->$target = $params[$target];
             }
@@ -40,8 +35,7 @@ class Schema implements JsonSchemaInterface
         return [
             '$schema' => $this->schema,
             'required' => $this->required,
-            'type' => $this->type,
-            'additionalProperties' => $this->additionalProperties,
+            'type' => $this->type
         ];
     }
 }
