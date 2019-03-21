@@ -1,0 +1,44 @@
+parameters:
+  ptyhard_json_schema_bundle.schema_annotation_priority: 30
+  ptyhard_json_schema_bundle.request_validation_priority: -100
+  ptyhard_json_schema_bundle.response_validation_priority: 20
+  ptyhard_json_schema_bundle.exception_listener_priority: 20
+
+services:
+
+    Ptyhard\JsonSchemaBundle\EventListener\ExceptionListener:
+        autowire: true
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, priority: '%ptyhard_json_schema_bundle.exception_listener_priority%' }
+
+    Ptyhard\JsonSchemaBundle\EventListener\SchemaObjectValidationListener:
+        autowire: true
+        tags:
+          - { name: kernel.event_listener, event: kernel.controller_arguments}
+          - { name: kernel.event_listener, event: kernel.view }
+
+    Ptyhard\JsonSchemaBundle\SchemaGenerator\Generator:
+        autowire: true
+
+    Ptyhard\JsonSchemaBundle\Validator\Validator:
+        autowire: true
+
+    Ptyhard\JsonSchemaBundle\SchemaObject\Exporter:
+        autowire: true
+
+    Ptyhard\JsonSchemaBundle\SchemaObject\Factory:
+        autowire: true
+
+    Ptyhard\JsonSchemaBundle\SchemaObject\Checker:
+        autowire: true
+
+    Ptyhard\JsonSchemaBundle\ArgumentResolver\SchemaDataResolver:
+        autowire: true
+        tags:
+            - { name: controller.argument_value_resolver, priority: 50 }
+
+    Ptyhard\JsonSchemaBundle\Validator\ValidatorInterface: '@Ptyhard\JsonSchemaBundle\Validator\Validator'
+    Ptyhard\JsonSchemaBundle\SchemaGenerator\GeneratorInterface: '@Ptyhard\JsonSchemaBundle\SchemaGenerator\Generator'
+    Ptyhard\JsonSchemaBundle\SchemaObject\FactoryInterface: '@Ptyhard\JsonSchemaBundle\SchemaObject\Factory'
+    Ptyhard\JsonSchemaBundle\SchemaObject\ExporterInterface: '@Ptyhard\JsonSchemaBundle\SchemaObject\Exporter'
+    Ptyhard\JsonSchemaBundle\SchemaObject\CheckerInterface: '@Ptyhard\JsonSchemaBundle\SchemaObject\Checker'
