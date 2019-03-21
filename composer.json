@@ -17,7 +17,7 @@
         "symfony/dependency-injection": "~3.4|~4.0",
         "symfony/event-dispatcher": "~3.4|~4.0",
         "symfony/http-foundation": "~3.4|~4.0",
-        "doctrine/common": "~2.10",
+        "doctrine/common": "~2.7",
         "justinrainbow/json-schema": "^5.2"
     },
     "autoload": {
