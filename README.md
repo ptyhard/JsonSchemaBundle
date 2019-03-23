@@ -50,14 +50,14 @@ use Ptyhard\JsonSchemaBundle\Annotations\Property;
 class User 
 {
     /**
-     * @Property("id", type="integer")
+     * @NumberProperty("id", type="integer")
      *
      * @var int
      */
     private $id;
 
     /**
-     * @Property("name", type="string")
+     * @StringProperty("name", type="string")
      *
      * @var string
      */

@@ -3,8 +3,13 @@
 namespace Ptyhard\JsonSchemaBundle\Annotations\Property;
 
 
-class StringProperty extends Property implements TypeInterface
+/**
+ * @Annotation
+ */
+class StringProperty extends Property
 {
+    use ToArrayTrait;
+
     /**
      * @var integer
      */
@@ -31,25 +36,6 @@ class StringProperty extends Property implements TypeInterface
             }
         }
 
-    }
-
-    public function toArray(): array
-    {
-        $data = parent::toArray();
-
-        if ($this->maxLength !== null) {
-            $data['maxLength'] = $this->maxLength;
-        }
-
-        if ($this->minLength !== null) {
-            $data['minLength'] = $this->minLength;
-        }
-
-        if ($this->pattern !== null) {
-            $data['pattern'] = $this->pattern;
-        }
-
-        return $data;
     }
 
 }

@@ -42,7 +42,7 @@ abstract class Property implements PropertyInterface
     /**
      * @var array
      */
-    private $options;
+    private $options = [];
 
 
     public function __construct(array $params)
@@ -51,7 +51,7 @@ abstract class Property implements PropertyInterface
             $this->name = $params['value'];
         }
 
-        foreach (['type', 'name', 'description', 'title', 'const', 'enum', 'options'] as $target) {
+        foreach (array_keys(get_object_vars($this)) as $target) {
             if (isset($params[$target])) {
                 $this->$target = $params[$target];
             }
@@ -71,27 +71,12 @@ abstract class Property implements PropertyInterface
      */
     public function toArray(): array
     {
-        $data = [
-            'type' => $this->type,
-            'description' => $this->description,
-        ];
-
-        if ($this->title) {
-            $data['title'] = $this->title;
+        $data = [];
+        foreach (get_object_vars($this) as $property => $value) {
+            if ($property !== 'options' && $value !== null) {
+                $data[$property] = $value;
+            }
         }
-
-        if ($this->description) {
-            $data['description'] = $this->description;
-        }
-
-        if ($this->enum) {
-            $data['enum'] = $this->enum;
-        }
-
-        if ($this->const) {
-            $data['const'] = $this->const;
-        }
-
         return array_merge($data, $this->options);
     }
 }

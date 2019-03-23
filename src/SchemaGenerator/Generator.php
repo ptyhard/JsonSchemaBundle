@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ptyhard\JsonSchemaBundle\SchemaGenerator;
 
 use Doctrine\Common\Annotations\Reader;
-use Ptyhard\JsonSchemaBundle\Annotations\Property;
+use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
 use Ptyhard\JsonSchemaBundle\Annotations\Schema;
 use Ptyhard\JsonSchemaBundle\Exception\GeneratorException;
 
@@ -44,7 +44,7 @@ class Generator implements GeneratorInterface
         $properties = [];
         foreach ($object->getProperties() as $propertyReflection) {
             /** @var Property $property */
-            $property = $this->annotationReader->getPropertyAnnotation($propertyReflection, Property::class);
+            $property = $this->annotationReader->getPropertyAnnotation($propertyReflection, PropertyInterface::class);
             if (null !== $property) {
                 $properties[$property->getName()] = $property->toArray();
             }
