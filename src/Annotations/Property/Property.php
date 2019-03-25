@@ -61,7 +61,7 @@ abstract class Property implements PropertyInterface
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -73,7 +73,7 @@ abstract class Property implements PropertyInterface
     {
         $data = [];
         foreach (get_object_vars($this) as $property => $value) {
-            if ($property !== 'options' && $value !== null) {
+            if (($property !== 'options' || $property !== 'name') && $value !== null) {
                 $data[$property] = $value;
             }
         }

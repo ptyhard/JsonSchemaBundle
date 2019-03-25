@@ -46,7 +46,11 @@ class Generator implements GeneratorInterface
             /** @var Property $property */
             $property = $this->annotationReader->getPropertyAnnotation($propertyReflection, PropertyInterface::class);
             if (null !== $property) {
-                $properties[$property->getName()] = $property->toArray();
+                $name = $property->getName();
+                if ($name === null) {
+                    $name = $propertyReflection->getName();
+                }
+                $properties[$name] = $property->toArray();
             }
         }
 
