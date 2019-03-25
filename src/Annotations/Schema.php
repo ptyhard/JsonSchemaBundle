@@ -35,7 +35,7 @@ class Schema implements JsonSchemaInterface
         return [
             '$schema' => $this->schema,
             'required' => $this->required,
-            'type' => $this->type
+            'type' => $this->type,
         ];
     }
 }

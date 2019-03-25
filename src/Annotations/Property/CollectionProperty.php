@@ -7,20 +7,15 @@ namespace Ptyhard\JsonSchemaBundle\Annotations\Property;
 /**
  * @Annotation
  */
-class ArrayProperty extends Property
+class CollectionProperty extends Property
 {
     use ConstractTrait;
     use ToArrayTrait;
 
     /**
-     * @var array
+     * @var string
      */
-    private $items;
-
-    /**
-     * @var array
-     */
-    private $additionalItems;
+    private $refSchema;
 
     /**
      * @var int
@@ -32,23 +27,9 @@ class ArrayProperty extends Property
      */
     private $minItems;
 
-    /**
-     * @var bool
-     */
-    private $uniqueItems = false;
-
-    /**
-     * @var array
-     */
-    private $contains;
-
-    /**
-     * @param array $params
-     */
     public function __construct(array $params)
     {
         $params['type'] = 'array';
-        parent::__construct($params);
         $this->__defaultConstract($params);
     }
 }

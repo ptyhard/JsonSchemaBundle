@@ -1,37 +1,39 @@
 <?php
 
-namespace Ptyhard\JsonSchemaBundle\Annotations\Property;
+declare(strict_types=1);
 
+namespace Ptyhard\JsonSchemaBundle\Annotations\Property;
 
 /**
  * @Annotation
  */
 class NumberProperty extends Property implements PropertyInterface
 {
+    use ConstractTrait;
     use ToArrayTrait;
 
     /**
-     * @var integer
+     * @var int
      */
     private $multipleOf;
 
     /**
-     * @var integer
+     * @var int
      */
     private $maximum;
 
     /**
-     * @var integer
+     * @var int
      */
     private $exclusiveMaximum;
 
     /**
-     * @var integer
+     * @var int
      */
     private $minimum;
 
     /**
-     * @var integer
+     * @var int
      */
     private $exclusiveMinimum;
 
@@ -42,13 +44,6 @@ class NumberProperty extends Property implements PropertyInterface
     {
         $params['type'] = 'number';
         parent::__construct($params);
-
-        foreach (['multipleOf', 'maximum', 'exclusiveMaximum', 'minimum', 'exclusiveMinimum'] as $target) {
-            if (isset($params[$target]) && is_numeric($params[$target])) {
-                $this->$target = $params[$target];
-            }
-        }
+        $this->__defaultConstract($params);
     }
-
-
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ptyhard\JsonSchemaBundle\Annotations\Property;
 
 /**
@@ -7,15 +9,16 @@ namespace Ptyhard\JsonSchemaBundle\Annotations\Property;
  */
 class ObjectProperty extends Property
 {
+    use ConstractTrait;
     use ToArrayTrait;
 
     /**
-     * @var integer
+     * @var int
      */
     private $maxProperties;
 
     /**
-     * @var integer
+     * @var int
      */
     private $minProperties;
 
@@ -56,13 +59,6 @@ class ObjectProperty extends Property
     {
         $params['type'] = 'string';
         parent::__construct($params);
-
-        foreach (array_keys(get_object_vars($this)) as $target) {
-            if (isset($params[$target])) {
-                $this->$target = $params[$target];
-            }
-        }
+        $this->__defaultConstract($params);
     }
-
-
 }

@@ -44,7 +44,6 @@ abstract class Property implements PropertyInterface
      */
     private $options = [];
 
-
     public function __construct(array $params)
     {
         if (isset($params['value'])) {
@@ -73,10 +72,11 @@ abstract class Property implements PropertyInterface
     {
         $data = [];
         foreach (get_object_vars($this) as $property => $value) {
-            if (($property !== 'options' || $property !== 'name') && $value !== null) {
+            if (('options' !== $property || 'name' !== $property) && null !== $value) {
                 $data[$property] = $value;
             }
         }
+
         return array_merge($data, $this->options);
     }
 }

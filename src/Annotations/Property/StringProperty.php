@@ -1,22 +1,24 @@
 <?php
 
-namespace Ptyhard\JsonSchemaBundle\Annotations\Property;
+declare(strict_types=1);
 
+namespace Ptyhard\JsonSchemaBundle\Annotations\Property;
 
 /**
  * @Annotation
  */
 class StringProperty extends Property
 {
+    use ConstractTrait;
     use ToArrayTrait;
 
     /**
-     * @var integer
+     * @var int
      */
     private $maxLength;
 
     /**
-     * @var integer
+     * @var int
      */
     private $minLength;
 
@@ -29,13 +31,6 @@ class StringProperty extends Property
     {
         $params['type'] = 'string';
         parent::__construct($params);
-
-        foreach (['maxLength', 'minLength', 'pattern'] as $target) {
-            if (isset($params[$target])) {
-                $this->$target = $params[$target];
-            }
-        }
-
+        $this->__defaultConstract($params);
     }
-
 }

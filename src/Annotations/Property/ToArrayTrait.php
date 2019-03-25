@@ -1,14 +1,15 @@
 <?php
 
-namespace Ptyhard\JsonSchemaBundle\Annotations\Property;
+declare(strict_types=1);
 
+namespace Ptyhard\JsonSchemaBundle\Annotations\Property;
 
 trait ToArrayTrait
 {
-    public function toArray() :array
+    public function toArray(): array
     {
-        return array_merge(parent::toArray(), array_filter(get_object_vars($this) , function ($value) {
-            return $value !== null;
+        return array_merge(parent::toArray(), array_filter(get_object_vars($this), function ($value) {
+            return null !== $value;
         }));
     }
 }
