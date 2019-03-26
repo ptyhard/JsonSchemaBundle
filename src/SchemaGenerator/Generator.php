@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ptyhard\JsonSchemaBundle\SchemaGenerator;
 
 use Doctrine\Common\Annotations\Reader;
+use Ptyhard\JsonSchemaBundle\Annotations\Property\Property;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
 use Ptyhard\JsonSchemaBundle\Annotations\Schema;
 use Ptyhard\JsonSchemaBundle\Exception\GeneratorException;
