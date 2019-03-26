@@ -17,6 +17,26 @@ services:
           - { name: kernel.event_listener, event: kernel.controller_arguments}
           - { name: kernel.event_listener, event: kernel.view }
 
+
+    Ptyhard\JsonSchemaBundle\PropertyGenerator\PropertyGeneratorResolver:
+        autowrie: true
+        arguments:
+            $generators:
+                - '@Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\DefaultGenerator'
+                - '@Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\CollectionGenerator'
+
+    Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\DefaultGenerator:
+        autowire: true
+        argauments:
+            $supported:
+                - string
+                - number
+                - object
+                - array
+
+    Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\CollectionGenerator:
+      autowire: true
+
     Ptyhard\JsonSchemaBundle\SchemaGenerator\Generator:
         autowire: true
 

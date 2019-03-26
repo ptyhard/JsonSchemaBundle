@@ -30,6 +30,7 @@ class CollectionProperty extends Property
     public function __construct(array $params)
     {
         $params['type'] = 'array';
+        parent::__construct($params);
         $this->__defaultConstract($params);
     }
 }
