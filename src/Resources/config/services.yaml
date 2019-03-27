@@ -19,7 +19,7 @@ services:
 
 
     Ptyhard\JsonSchemaBundle\PropertyGenerator\PropertyGeneratorResolver:
-        autowrie: true
+        autowire: true
         arguments:
             $generators:
                 - '@Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\DefaultGenerator'
