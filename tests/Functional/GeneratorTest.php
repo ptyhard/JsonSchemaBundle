@@ -6,6 +6,13 @@ namespace Ptyhard\JsonSchemaBundle\Tests\Functional;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\ObjectProphecy;
+use Ptyhard\JsonSchemaBundle\Annotations\Property\ArrayProperty;
+use Ptyhard\JsonSchemaBundle\Annotations\Property\NumberProperty;
+use Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty;
+use Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\CollectionGenerator;
+use Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\DefaultGenerator;
+use Ptyhard\JsonSchemaBundle\PropertyGenerator\PropertyGeneratorResolver;
 use Ptyhard\JsonSchemaBundle\SchemaGenerator\Generator;
 use Ptyhard\JsonSchemaBundle\Tests\Schema\User;
 
@@ -22,6 +29,16 @@ class GeneratorTest extends TestCase
     public function setUp(): void
     {
         $this->generator = new Generator(new AnnotationReader());
+        $defaultGenerator = new DefaultGenerator([StringProperty::class, NumberProperty::class, ArrayProperty::class, ObjectProphecy::class]);
+        $collectionGenerator = new CollectionGenerator($this->generator);
+
+        $resolver = new PropertyGeneratorResolver([
+            $defaultGenerator,
+            $collectionGenerator
+        ]);
+
+        $this->generator->setPropertyGeneratorResolver($resolver);
+
     }
 
     public function testGenerateStringAnnotation(): void

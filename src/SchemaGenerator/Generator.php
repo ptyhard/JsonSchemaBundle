@@ -9,6 +9,7 @@ use Ptyhard\JsonSchemaBundle\Annotations\Property\Property;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
 use Ptyhard\JsonSchemaBundle\Annotations\Schema;
 use Ptyhard\JsonSchemaBundle\Exception\GeneratorException;
+use Ptyhard\JsonSchemaBundle\PropertyGenerator\PropertyGeneratorResolver;
 
 class Generator implements GeneratorInterface
 {
@@ -18,11 +19,24 @@ class Generator implements GeneratorInterface
     private $annotationReader;
 
     /**
+     * @var PropertyGeneratorResolver
+     */
+    private $propertyGeneratorResolver;
+
+    /**
      * @param Reader $annotationReader
      */
     public function __construct(Reader $annotationReader)
     {
         $this->annotationReader = $annotationReader;
+    }
+
+    /**
+     * @param PropertyGeneratorResolver $propertyGeneratorResolver
+     */
+    public function setPropertyGeneratorResolver(PropertyGeneratorResolver $propertyGeneratorResolver): void
+    {
+        $this->propertyGeneratorResolver = $propertyGeneratorResolver;
     }
 
     /**
@@ -51,7 +65,8 @@ class Generator implements GeneratorInterface
                 if (null === $name) {
                     $name = $propertyReflection->getName();
                 }
-                $properties[$name] = $property->toArray();
+                $propertyGenerator = $this->propertyGeneratorResolver->resolve(get_class($property));
+                $properties[$name] = $propertyGenerator->generate($property);
             }
         }
 
