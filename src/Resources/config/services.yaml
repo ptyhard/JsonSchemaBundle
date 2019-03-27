@@ -27,7 +27,7 @@ services:
 
     Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\DefaultGenerator:
         autowire: true
-        argauments:
+        arguments:
             $supported:
                 - 'Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty'
                 - 'Ptyhard\JsonSchemaBundle\Annotations\Property\NumberProperty'
@@ -39,6 +39,10 @@ services:
 
     Ptyhard\JsonSchemaBundle\SchemaGenerator\Generator:
         autowire: true
+        calls:
+            - method: setPropertyGeneratorResolver
+              arguments:
+                  - '@Ptyhard\JsonSchemaBundle\PropertyGenerator\PropertyGeneratorResolver'
 
     Ptyhard\JsonSchemaBundle\Validator\Validator:
         autowire: true

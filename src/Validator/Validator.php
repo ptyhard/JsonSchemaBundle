@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ptyhard\JsonSchemaBundle\Validator;
 
+use JsonSchema\Constraints\Constraint;
 use Ptyhard\JsonSchemaBundle\Exception\ValidationFailedException;
 
 class Validator implements ValidatorInterface
@@ -20,7 +21,8 @@ class Validator implements ValidatorInterface
 
     public function check(array $value, array $schema): void
     {
-        $this->schemaValidator->check((object) $value, $schema);
+        $object = (object) $value;
+        $this->schemaValidator->validate($object, $schema, Constraint::CHECK_MODE_COERCE_TYPES | Constraint::CHECK_MODE_TYPE_CAST);
         if (false === $this->schemaValidator->isValid()) {
             $e = ValidationFailedException::newException($this->schemaValidator->getErrors());
             $this->schemaValidator->reset();
