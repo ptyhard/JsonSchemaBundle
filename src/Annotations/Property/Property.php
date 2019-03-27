@@ -65,6 +65,11 @@ abstract class Property implements PropertyInterface
         return $this->name;
     }
 
+    public function getType(): String
+    {
+        return $this->type;
+    }
+
     /**
      * {@inheritdoc}
      */

@@ -29,10 +29,10 @@ services:
         autowire: true
         argauments:
             $supported:
-                - string
-                - number
-                - object
-                - array
+                - 'Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty'
+                - 'Ptyhard\JsonSchemaBundle\Annotations\Property\NumberProperty'
+                - 'Ptyhard\JsonSchemaBundle\Annotations\Property\ObjectProperty'
+                - 'Ptyhard\JsonSchemaBundle\Annotations\Property\ArrayProperty'
 
     Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\CollectionGenerator:
       autowire: true

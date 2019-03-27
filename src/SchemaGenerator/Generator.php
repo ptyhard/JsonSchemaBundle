@@ -32,6 +32,14 @@ class Generator implements GeneratorInterface
     }
 
     /**
+     * @param PropertyGeneratorResolver $propertyGeneratorResolver
+     */
+    public function setPropertyGeneratorResolver(PropertyGeneratorResolver $propertyGeneratorResolver): void
+    {
+        $this->propertyGeneratorResolver = $propertyGeneratorResolver;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function generate(string $class): array
@@ -57,7 +65,7 @@ class Generator implements GeneratorInterface
                 if (null === $name) {
                     $name = $propertyReflection->getName();
                 }
-                $propertyGenerator = $this->propertyGeneratorResolver->resolve($property->getName());
+                $propertyGenerator = $this->propertyGeneratorResolver->resolve(get_class($property));
                 $properties[$name] = $propertyGenerator->generate($property);
             }
         }

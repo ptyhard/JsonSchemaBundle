@@ -3,35 +3,37 @@
 namespace Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators;
 
 
+use Ptyhard\JsonSchemaBundle\Annotations\Property\CollectionProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
-use Ptyhard\JsonSchemaBundle\PropertyGenerator\GeneratorInterface;
+use Ptyhard\JsonSchemaBundle\PropertyGenerator\GeneratorInterface as PropertyGeneratorInterface;
+use Ptyhard\JsonSchemaBundle\SchemaGenerator\GeneratorInterface as SchemaGeneratorInterface;
 
-class CollectionGenerator implements GeneratorInterface
+class CollectionGenerator implements PropertyGeneratorInterface
 {
     /**
-     * @var DefaultGenerator
+     * @var SchemaGeneratorInterface
      */
-    private $defaultGenerator;
+    private $schemaGenerator;
 
     /**
-     * @param DefaultGenerator $defaultGenerator
+     * @param SchemaGeneratorInterface $schemaGenerator
      */
-    public function __construct(DefaultGenerator $defaultGenerator)
+    public function __construct(SchemaGeneratorInterface $schemaGenerator)
     {
-        $this->defaultGenerator = $defaultGenerator;
+        $this->schemaGenerator = $schemaGenerator;
     }
 
     public function generate(PropertyInterface $property): array
     {
         $data = $property->toArray();
-        $refClass = new $data['refSchema']();
-        $data['items'] = $this->defaultGenerator->generate($refClass);
+        $data['items'] = $this->schemaGenerator->generate($data['refSchema']);
+        unset($data['items']['$schema'], $data['refSchema']);
         return $data;
     }
 
     public function supported(string $name): bool
     {
-        return $name === 'collection';
+        return $name === CollectionProperty::class;
     }
 
 
