@@ -18,14 +18,14 @@ services:
           - { name: kernel.event_listener, event: kernel.view }
 
 
-    Ptyhard\JsonSchemaBundle\PropertyGenerator\PropertyGeneratorResolver:
+    Ptyhard\JsonSchemaBundle\Generator\Property\PropertyGeneratorResolver:
         autowire: true
         arguments:
             $generators:
-                - '@Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\DefaultGenerator'
-                - '@Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\CollectionGenerator'
+                - '@Ptyhard\JsonSchemaBundle\Generator\Property\Generators\DefaultGenerator'
+                - '@Ptyhard\JsonSchemaBundle\Generator\Property\Generators\CollectionGenerator'
 
-    Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\DefaultGenerator:
+    Ptyhard\JsonSchemaBundle\Generator\Property\Generators\DefaultGenerator:
         autowire: true
         arguments:
             $supported:
@@ -34,15 +34,15 @@ services:
                 - 'Ptyhard\JsonSchemaBundle\Annotations\Property\ObjectProperty'
                 - 'Ptyhard\JsonSchemaBundle\Annotations\Property\ArrayProperty'
 
-    Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\CollectionGenerator:
+    Ptyhard\JsonSchemaBundle\Generator\Property\Generators\CollectionGenerator:
       autowire: true
 
-    Ptyhard\JsonSchemaBundle\SchemaGenerator\Generator:
+    Ptyhard\JsonSchemaBundle\Generator\Schema\Generator:
         autowire: true
         calls:
             - method: setPropertyGeneratorResolver
               arguments:
-                  - '@Ptyhard\JsonSchemaBundle\PropertyGenerator\PropertyGeneratorResolver'
+                  - '@Ptyhard\JsonSchemaBundle\Generator\Property\PropertyGeneratorResolver'
 
     Ptyhard\JsonSchemaBundle\Validator\Validator:
         autowire: true
@@ -62,7 +62,7 @@ services:
             - { name: controller.argument_value_resolver, priority: 50 }
 
     Ptyhard\JsonSchemaBundle\Validator\ValidatorInterface: '@Ptyhard\JsonSchemaBundle\Validator\Validator'
-    Ptyhard\JsonSchemaBundle\SchemaGenerator\GeneratorInterface: '@Ptyhard\JsonSchemaBundle\SchemaGenerator\Generator'
+    Ptyhard\JsonSchemaBundle\Generator\Schema\GeneratorInterface: '@Ptyhard\JsonSchemaBundle\Generator\Schema\Generator'
     Ptyhard\JsonSchemaBundle\SchemaObject\FactoryInterface: '@Ptyhard\JsonSchemaBundle\SchemaObject\Factory'
     Ptyhard\JsonSchemaBundle\SchemaObject\ExporterInterface: '@Ptyhard\JsonSchemaBundle\SchemaObject\Exporter'
     Ptyhard\JsonSchemaBundle\SchemaObject\CheckerInterface: '@Ptyhard\JsonSchemaBundle\SchemaObject\Checker'
