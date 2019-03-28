@@ -77,7 +77,7 @@ abstract class Property implements PropertyInterface
     {
         $data = [];
         foreach (get_object_vars($this) as $property => $value) {
-            if (('options' !== $property || 'name' !== $property) && null !== $value) {
+            if (('options' !== $property && 'name' !== $property) && null !== $value) {
                 $data[$property] = $value;
             }
         }

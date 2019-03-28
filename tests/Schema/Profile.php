@@ -9,28 +9,28 @@ use Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Schema;
 
 /**
- * @Schema(required={"title", "comment"})
+ * @Schema()
  */
-class Comment
+class Profile
 {
     /**
-     * @NumberProperty(minimum=1)
+     * @NumberProperty()
      *
-     * @var int
+     * @var number
      */
-    private $id;
+    private $barthDay;
 
     /**
-     * @StringProperty(minLength=1, maxLength=120)
+     * @StringProperty()
      *
      * @var string
      */
-    private $title;
+    private $country;
 
     /**
-     * @StringProperty(minLength=1, maxLength=255)
+     * @StringProperty()
      *
      * @var string
      */
-    private $comment;
+    private $address;
 }

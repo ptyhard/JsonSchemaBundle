@@ -1,11 +1,12 @@
 <?php
 
-namespace Ptyhard\JsonSchemaBundle\SchemaGenerator;
+declare(strict_types=1);
 
+namespace Ptyhard\JsonSchemaBundle\SchemaGenerator;
 
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
 
 interface PropertyGenrator
 {
-    public function generate(PropertyInterface $property) :array;
+    public function generate(PropertyInterface $property): array;
 }

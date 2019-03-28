@@ -65,7 +65,7 @@ class Generator implements GeneratorInterface
                 if (null === $name) {
                     $name = $propertyReflection->getName();
                 }
-                $propertyGenerator = $this->propertyGeneratorResolver->resolve(get_class($property));
+                $propertyGenerator = $this->propertyGeneratorResolver->resolve(\get_class($property));
                 $properties[$name] = $propertyGenerator->generate($property);
             }
         }
