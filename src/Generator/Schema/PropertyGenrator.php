@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ptyhard\JsonSchemaBundle\SchemaGenerator;
+namespace Ptyhard\JsonSchemaBundle\Generator\Schema;
 
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
 

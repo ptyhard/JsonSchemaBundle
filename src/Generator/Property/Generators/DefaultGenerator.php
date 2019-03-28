@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators;
+namespace Ptyhard\JsonSchemaBundle\Generator\Property\Generators;
 
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
-use Ptyhard\JsonSchemaBundle\PropertyGenerator\GeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\Property\GeneratorInterface;
 
 class DefaultGenerator implements GeneratorInterface
 {

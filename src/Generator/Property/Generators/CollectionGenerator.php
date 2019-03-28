@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators;
+namespace Ptyhard\JsonSchemaBundle\Generator\Property\Generators;
 
 use Ptyhard\JsonSchemaBundle\Annotations\Property\CollectionProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
-use Ptyhard\JsonSchemaBundle\PropertyGenerator\GeneratorInterface as PropertyGeneratorInterface;
-use Ptyhard\JsonSchemaBundle\SchemaGenerator\GeneratorInterface as SchemaGeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\Property\GeneratorInterface as PropertyGeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\Schema\GeneratorInterface as SchemaGeneratorInterface;
 
 class CollectionGenerator implements PropertyGeneratorInterface
 {

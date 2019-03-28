@@ -7,7 +7,7 @@ namespace Ptyhard\JsonSchemaBundle\Annotations\Property;
 /**
  * @Annotation
  */
-class NumberProperty extends Property implements PropertyInterface
+class NumberProperty extends Property
 {
     use ConstractTrait;
     use ToArrayTrait;

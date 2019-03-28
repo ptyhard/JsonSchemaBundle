@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ptyhard\JsonSchemaBundle\EventListener;
 
-use Ptyhard\JsonSchemaBundle\SchemaGenerator\GeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\Schema\GeneratorInterface;
 use Ptyhard\JsonSchemaBundle\SchemaObject\CheckerInterface;
 use Ptyhard\JsonSchemaBundle\SchemaObject\ExporterInterface;
 use Ptyhard\JsonSchemaBundle\Validator\ValidatorInterface;

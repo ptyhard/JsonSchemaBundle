@@ -1,12 +1,12 @@
 <?php
 
-namespace Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators;
+namespace Ptyhard\JsonSchemaBundle\Generator\Property\Generators;
 
 
 use Ptyhard\JsonSchemaBundle\Annotations\Property\ObjectProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
-use Ptyhard\JsonSchemaBundle\PropertyGenerator\GeneratorInterface as PropertyGeneratorInterface;
-use Ptyhard\JsonSchemaBundle\SchemaGenerator\GeneratorInterface as SchemaGeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\Property\GeneratorInterface as PropertyGeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\Schema\GeneratorInterface as SchemaGeneratorInterface;
 
 
 class ObjectGenerator implements PropertyGeneratorInterface
