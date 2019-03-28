@@ -27,8 +27,8 @@ class CollectionGenerator implements PropertyGeneratorInterface
     public function generate(PropertyInterface $property): array
     {
         $data = $property->toArray();
-        $data['items'] = $this->schemaGenerator->generate($data['refSchema']);
-        unset($data['items']['$schema'], $data['refSchema']);
+        $data['items'] = $this->schemaGenerator->generate($data['class']);
+        unset($data['items']['$schema'], $data['class']);
 
         return $data;
     }

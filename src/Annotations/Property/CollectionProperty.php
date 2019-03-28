@@ -15,7 +15,7 @@ class CollectionProperty extends Property
     /**
      * @var string
      */
-    private $refSchema;
+    private $class;
 
     /**
      * @var int
