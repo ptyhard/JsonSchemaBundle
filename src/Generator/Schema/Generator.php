@@ -9,7 +9,7 @@ use Ptyhard\JsonSchemaBundle\Annotations\Property\Property;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
 use Ptyhard\JsonSchemaBundle\Annotations\Schema;
 use Ptyhard\JsonSchemaBundle\Exception\GeneratorException;
-use Ptyhard\JsonSchemaBundle\PropertyGenerator\PropertyGeneratorResolver;
+use Ptyhard\JsonSchemaBundle\Generator\Property\PropertyGeneratorResolver;
 
 class Generator implements GeneratorInterface
 {

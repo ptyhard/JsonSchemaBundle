@@ -9,11 +9,11 @@ use PHPUnit\Framework\TestCase;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\ArrayProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\NumberProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty;
-use Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\CollectionGenerator;
-use Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\DefaultGenerator;
-use Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\ObjectGenerator;
-use Ptyhard\JsonSchemaBundle\PropertyGenerator\PropertyGeneratorResolver;
-use Ptyhard\JsonSchemaBundle\SchemaGenerator\Generator;
+use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\CollectionGenerator;
+use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\DefaultGenerator;
+use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\ObjectGenerator;
+use Ptyhard\JsonSchemaBundle\Generator\Property\PropertyGeneratorResolver;
+use Ptyhard\JsonSchemaBundle\Generator\Schema\Generator;
 use Ptyhard\JsonSchemaBundle\Tests\Schema\User;
 
 class GeneratorTest extends TestCase
