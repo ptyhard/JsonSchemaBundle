@@ -37,7 +37,7 @@ class User
     private $profile;
 
     /**
-     * @CollectionProperty(refSchema="Ptyhard\JsonSchemaBundle\Tests\Schema\Comment")
+     * @CollectionProperty(class="Ptyhard\JsonSchemaBundle\Tests\Schema\Comment")
      *
      * @var Comment[]
      */

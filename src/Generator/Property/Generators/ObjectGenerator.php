@@ -29,7 +29,7 @@ class ObjectGenerator implements PropertyGeneratorInterface
         $data = $property->toArray();
         if (isset($data['class']) && null !== $data['class']) {
             return array_filter($this->schemaGenerator->generate($data['class']), function($key) {
-                return $key !== '$schema';
+                return $key !== '$schema' && $key !== 'class';
             }, ARRAY_FILTER_USE_KEY);
         }
 

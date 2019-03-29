@@ -11,7 +11,7 @@ class CollectionPropertyTest extends TestCase
     public function testToArray() :void
     {
         $data = [
-            'refSchema' => 'hoge',
+            'class' => 'hoge',
             'maxItems' => 100,
             'minItems' => 10
         ];
