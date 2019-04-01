@@ -56,7 +56,7 @@ services:
     Ptyhard\JsonSchemaBundle\SchemaObject\Checker:
         autowire: true
 
-    Ptyhard\JsonSchemaBundle\ArgumentResolver\SchemaDataResolver:
+    Ptyhard\JsonSchemaBundle\ArgumentResolver\SchemaClassResolver:
         autowire: true
         tags:
             - { name: controller.argument_value_resolver, priority: 50 }
