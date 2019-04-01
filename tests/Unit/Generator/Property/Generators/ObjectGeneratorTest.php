@@ -1,7 +1,8 @@
 <?php
 
-namespace Ptyhard\JsonSchemaBundle\Tests\Unit\Generator\Property\Generators;
+declare(strict_types=1);
 
+namespace Ptyhard\JsonSchemaBundle\Tests\Unit\Generator\Property\Generators;
 
 use PHPUnit\Framework\TestCase;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
@@ -17,12 +18,12 @@ class ObjectGeneratorTest extends TestCase
         $this->schemaGenerator = $this->prophesize(GeneratorInterface::class);
     }
 
-    public function testGenerate()
+    public function testGenerate(): void
     {
         $data = [
             'class' => 'hoge',
             '$schema' => 'a',
-            'a' => 'b'
+            'a' => 'b',
         ];
 
         $this->schemaGenerator->generate($data['class'])
@@ -36,9 +37,5 @@ class ObjectGeneratorTest extends TestCase
         $actual = $objectGenerator->generate($property->reveal());
 
         $this->assertSame(['a' => 'b'], $actual);
-
-
-
     }
-
 }

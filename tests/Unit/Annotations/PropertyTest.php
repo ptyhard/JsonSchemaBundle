@@ -1,19 +1,20 @@
 <?php
 
-namespace Ptyhard\JsonSchemaBundle\Tests\Unit\Annotations;
+declare(strict_types=1);
 
+namespace Ptyhard\JsonSchemaBundle\Tests\Unit\Annotations;
 
 use PHPUnit\Framework\TestCase;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty;
 
 class PropertyTest extends TestCase
 {
-    public function testToArray() :void
+    public function testToArray(): void
     {
         $params = [
             'maxLength' => 10,
             'minLength' => 1,
-            'pattern' => ''
+            'pattern' => '',
         ];
 
         $property = new StringProperty($params);

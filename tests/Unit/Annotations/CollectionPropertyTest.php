@@ -1,19 +1,20 @@
 <?php
 
-namespace Ptyhard\JsonSchemaBundle\Tests\Unit\Annotations;
+declare(strict_types=1);
 
+namespace Ptyhard\JsonSchemaBundle\Tests\Unit\Annotations;
 
 use PHPUnit\Framework\TestCase;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\CollectionProperty;
 
 class CollectionPropertyTest extends TestCase
 {
-    public function testToArray() :void
+    public function testToArray(): void
     {
         $data = [
             'class' => 'hoge',
             'maxItems' => 100,
-            'minItems' => 10
+            'minItems' => 10,
         ];
 
         $property = new CollectionProperty($data);

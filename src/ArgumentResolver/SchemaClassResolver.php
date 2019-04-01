@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-class SchemaDataResolver implements ArgumentValueResolverInterface
+class SchemaClassResolver implements ArgumentValueResolverInterface
 {
     /**
      * @var FactoryInterface
@@ -34,7 +34,11 @@ class SchemaDataResolver implements ArgumentValueResolverInterface
 
     public function supports(Request $request, ArgumentMetadata $argument): bool
     {
-        return $this->checker->isSchemaClass($argument->getType());
+        try {
+            return $this->checker->isSchemaClass($argument->getType());
+        } catch (\ReflectionException $e) {
+            return false;
+        }
     }
 
     public function resolve(Request $request, ArgumentMetadata $argument): \Generator

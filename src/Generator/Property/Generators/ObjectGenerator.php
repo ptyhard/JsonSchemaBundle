@@ -1,13 +1,13 @@
 <?php
 
-namespace Ptyhard\JsonSchemaBundle\Generator\Property\Generators;
+declare(strict_types=1);
 
+namespace Ptyhard\JsonSchemaBundle\Generator\Property\Generators;
 
 use Ptyhard\JsonSchemaBundle\Annotations\Property\ObjectProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
 use Ptyhard\JsonSchemaBundle\Generator\Property\GeneratorInterface as PropertyGeneratorInterface;
 use Ptyhard\JsonSchemaBundle\Generator\Schema\GeneratorInterface as SchemaGeneratorInterface;
-
 
 class ObjectGenerator implements PropertyGeneratorInterface
 {
@@ -28,8 +28,8 @@ class ObjectGenerator implements PropertyGeneratorInterface
     {
         $data = $property->toArray();
         if (isset($data['class']) && null !== $data['class']) {
-            return array_filter($this->schemaGenerator->generate($data['class']), function($key) {
-                return $key !== '$schema' && $key !== 'class';
+            return array_filter($this->schemaGenerator->generate($data['class']), function ($key) {
+                return '$schema' !== $key && 'class' !== $key;
             }, ARRAY_FILTER_USE_KEY);
         }
 
@@ -40,5 +40,4 @@ class ObjectGenerator implements PropertyGeneratorInterface
     {
         return ObjectProperty::class === $name;
     }
-
 }

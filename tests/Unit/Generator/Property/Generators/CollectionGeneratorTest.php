@@ -1,7 +1,8 @@
 <?php
 
-namespace Ptyhard\JsonSchemaBundle\Tests\Unit\Generator\Property\Generators;
+declare(strict_types=1);
 
+namespace Ptyhard\JsonSchemaBundle\Tests\Unit\Generator\Property\Generators;
 
 use PHPUnit\Framework\TestCase;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
@@ -17,16 +18,16 @@ class CollectionGeneratorTest extends TestCase
         $this->schemaGenerator = $this->prophesize(GeneratorInterface::class);
     }
 
-    public function testGenerate()
+    public function testGenerate(): void
     {
         $data = [
             'class' => 'hoge',
-            'type' => 'array'
+            'type' => 'array',
         ];
 
         $this->schemaGenerator->generate($data['class'])
             ->willReturn(array_merge([
-                '$schema' => 'hoge'
+                '$schema' => 'hoge',
             ], $data));
 
         $property = $this->prophesize(PropertyInterface::class);
@@ -40,11 +41,8 @@ class CollectionGeneratorTest extends TestCase
             'type' => 'array',
             'items' => [
                 'class' => 'hoge',
-                'type' => 'array'
-            ]
+                'type' => 'array',
+            ],
         ], $actual);
-
-
-
     }
 }

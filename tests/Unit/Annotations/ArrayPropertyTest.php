@@ -1,14 +1,15 @@
 <?php
 
-namespace Ptyhard\JsonSchemaBundle\Tests\Unit\Annotations;
+declare(strict_types=1);
 
+namespace Ptyhard\JsonSchemaBundle\Tests\Unit\Annotations;
 
 use PHPUnit\Framework\TestCase;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\ArrayProperty;
 
 class ArrayPropertyTest extends TestCase
 {
-    public function testToArray()
+    public function testToArray(): void
     {
         $data = [
             'items' => [],
@@ -16,7 +17,7 @@ class ArrayPropertyTest extends TestCase
             'maxItems' => 100,
             'minItems' => 10,
             'uniqueItems' => true,
-            'contains' => []
+            'contains' => [],
         ];
 
         $property = new ArrayProperty($data);
