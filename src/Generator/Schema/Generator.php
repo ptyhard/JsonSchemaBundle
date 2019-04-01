@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Ptyhard\JsonSchemaBundle\SchemaGenerator;
+namespace Ptyhard\JsonSchemaBundle\Generator\Schema;
 
 use Doctrine\Common\Annotations\Reader;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\Property;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
 use Ptyhard\JsonSchemaBundle\Annotations\Schema;
 use Ptyhard\JsonSchemaBundle\Exception\GeneratorException;
-use Ptyhard\JsonSchemaBundle\PropertyGenerator\PropertyGeneratorResolver;
+use Ptyhard\JsonSchemaBundle\Generator\Property\PropertyGeneratorResolver;
 
 class Generator implements GeneratorInterface
 {
@@ -64,8 +64,9 @@ class Generator implements GeneratorInterface
                 $name = $property->getName();
                 if (null === $name) {
                     $name = $propertyReflection->getName();
+                    $property->setName($name);
                 }
-                $propertyGenerator = $this->propertyGeneratorResolver->resolve(get_class($property));
+                $propertyGenerator = $this->propertyGeneratorResolver->resolve(\get_class($property));
                 $properties[$name] = $propertyGenerator->generate($property);
             }
         }

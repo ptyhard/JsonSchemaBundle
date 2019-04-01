@@ -6,14 +6,14 @@ namespace Ptyhard\JsonSchemaBundle\Tests\Functional;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Prophecy\ObjectProphecy;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\ArrayProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\NumberProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty;
-use Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\CollectionGenerator;
-use Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators\DefaultGenerator;
-use Ptyhard\JsonSchemaBundle\PropertyGenerator\PropertyGeneratorResolver;
-use Ptyhard\JsonSchemaBundle\SchemaGenerator\Generator;
+use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\CollectionGenerator;
+use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\DefaultGenerator;
+use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\ObjectGenerator;
+use Ptyhard\JsonSchemaBundle\Generator\Property\PropertyGeneratorResolver;
+use Ptyhard\JsonSchemaBundle\Generator\Schema\Generator;
 use Ptyhard\JsonSchemaBundle\Tests\Schema\User;
 
 class GeneratorTest extends TestCase
@@ -29,16 +29,17 @@ class GeneratorTest extends TestCase
     public function setUp(): void
     {
         $this->generator = new Generator(new AnnotationReader());
-        $defaultGenerator = new DefaultGenerator([StringProperty::class, NumberProperty::class, ArrayProperty::class, ObjectProphecy::class]);
+        $defaultGenerator = new DefaultGenerator([StringProperty::class, NumberProperty::class, ArrayProperty::class]);
         $collectionGenerator = new CollectionGenerator($this->generator);
+        $objectGenerator = new ObjectGenerator($this->generator);
 
         $resolver = new PropertyGeneratorResolver([
             $defaultGenerator,
-            $collectionGenerator
+            $collectionGenerator,
+            $objectGenerator,
         ]);
 
         $this->generator->setPropertyGeneratorResolver($resolver);
-
     }
 
     public function testGenerateStringAnnotation(): void
@@ -52,17 +53,42 @@ class GeneratorTest extends TestCase
             'properties' => [
                     'id' => [
                             'type' => 'number',
-                            'options' => [
-                                ],
                             'minimum' => 1,
                         ],
                     'name' => [
                             'type' => 'string',
-                            'options' => [
-                                ],
                             'maxLength' => 20,
                             'minLength' => 1,
                             'pattern' => '^[^a-z1-9]+$',
+                        ],
+                    'profile' => [
+                            'type' => 'object',
+                        ],
+                    'comments' => [
+                            'type' => 'array',
+                            'items' => [
+                                    'required' => [
+                                            0 => 'title',
+                                            1 => 'comment',
+                                        ],
+                                    'type' => 'object',
+                                    'properties' => [
+                                            'id' => [
+                                                    'type' => 'number',
+                                                    'minimum' => 1,
+                                                ],
+                                            'title' => [
+                                                    'type' => 'string',
+                                                    'maxLength' => 120,
+                                                    'minLength' => 1,
+                                                ],
+                                            'comment' => [
+                                                    'type' => 'string',
+                                                    'maxLength' => 255,
+                                                    'minLength' => 1,
+                                                ],
+                                        ],
+                                ],
                         ],
                 ],
         ];

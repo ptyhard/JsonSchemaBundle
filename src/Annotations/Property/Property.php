@@ -25,7 +25,7 @@ abstract class Property implements PropertyInterface
     private $enum;
 
     /**
-     * @var mixed
+     * @var string
      */
     private $const;
 
@@ -65,6 +65,14 @@ abstract class Property implements PropertyInterface
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
     public function getType(): String
     {
         return $this->type;
@@ -77,7 +85,7 @@ abstract class Property implements PropertyInterface
     {
         $data = [];
         foreach (get_object_vars($this) as $property => $value) {
-            if (('options' !== $property || 'name' !== $property) && null !== $value) {
+            if (('options' !== $property && 'name' !== $property) && null !== $value) {
                 $data[$property] = $value;
             }
         }

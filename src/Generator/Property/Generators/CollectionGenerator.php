@@ -1,12 +1,13 @@
 <?php
 
-namespace Ptyhard\JsonSchemaBundle\PropertyGenerator\Generators;
+declare(strict_types=1);
 
+namespace Ptyhard\JsonSchemaBundle\Generator\Property\Generators;
 
 use Ptyhard\JsonSchemaBundle\Annotations\Property\CollectionProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
-use Ptyhard\JsonSchemaBundle\PropertyGenerator\GeneratorInterface as PropertyGeneratorInterface;
-use Ptyhard\JsonSchemaBundle\SchemaGenerator\GeneratorInterface as SchemaGeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\Property\GeneratorInterface as PropertyGeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\Schema\GeneratorInterface as SchemaGeneratorInterface;
 
 class CollectionGenerator implements PropertyGeneratorInterface
 {
@@ -26,15 +27,14 @@ class CollectionGenerator implements PropertyGeneratorInterface
     public function generate(PropertyInterface $property): array
     {
         $data = $property->toArray();
-        $data['items'] = $this->schemaGenerator->generate($data['refSchema']);
-        unset($data['items']['$schema'], $data['refSchema']);
+        $data['items'] = $this->schemaGenerator->generate($data['class']);
+        unset($data['items']['$schema'], $data['class']);
+
         return $data;
     }
 
     public function supported(string $name): bool
     {
-        return $name === CollectionProperty::class;
+        return CollectionProperty::class === $name;
     }
-
-
 }

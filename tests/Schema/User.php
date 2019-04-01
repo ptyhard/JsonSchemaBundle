@@ -6,6 +6,7 @@ namespace Ptyhard\JsonSchemaBundle\Tests\Schema;
 
 use Ptyhard\JsonSchemaBundle\Annotations\Property\CollectionProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\NumberProperty;
+use Ptyhard\JsonSchemaBundle\Annotations\Property\ObjectProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Schema;
 
@@ -29,21 +30,30 @@ class User
     private $name;
 
     /**
-     * @CollectionProperty(refSchema="Ptyhard\JsonSchemaBundle\Tests\Schema\Comment")
+     * @ObjectProperty()
+     *
+     * @var Profile
+     */
+    private $profile;
+
+    /**
+     * @CollectionProperty(class="Ptyhard\JsonSchemaBundle\Tests\Schema\Comment")
      *
      * @var Comment[]
      */
     private $comments = [];
 
     /**
-     * @param int $id
-     * @param string $name
-     * @param array $comments
+     * @param int       $id
+     * @param string    $name
+     * @param Profile   $profile
+     * @param Comment[] $comments
      */
-    public function __construct(int $id, string $name, array $comments = [])
+    public function __construct(int $id, string $name, Profile $profile, array $comments)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->comments = [];
+        $this->profile = $profile;
+        $this->comments = $comments;
     }
 }

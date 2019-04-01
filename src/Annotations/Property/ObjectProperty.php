@@ -57,7 +57,7 @@ class ObjectProperty extends Property
      */
     public function __construct(array $params)
     {
-        $params['type'] = 'string';
+        $params['type'] = 'object';
         parent::__construct($params);
         $this->__defaultConstract($params);
     }
