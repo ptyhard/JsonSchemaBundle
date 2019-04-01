@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Ptyhard\JsonSchemaBundle\Generator\Schema;
+namespace Ptyhard\JsonSchemaBundle\Generator;
+
 
 use Doctrine\Common\Annotations\Reader;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\Property;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
 use Ptyhard\JsonSchemaBundle\Annotations\Schema;
-use Ptyhard\JsonSchemaBundle\Exception\GeneratorException;
 use Ptyhard\JsonSchemaBundle\Generator\Property\PropertyGeneratorResolver;
+use Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorResolver;
 
 class Generator implements GeneratorInterface
 {
@@ -19,16 +20,31 @@ class Generator implements GeneratorInterface
     private $annotationReader;
 
     /**
+     * @var SchemaGeneratorResolver
+     */
+    private $schemaGeneratorResolver;
+
+    /**
      * @var PropertyGeneratorResolver
      */
     private $propertyGeneratorResolver;
 
     /**
      * @param Reader $annotationReader
+     * @param SchemaGeneratorResolver $schemaGeneratorResolver
+     * @param PropertyGeneratorResolver $propertyGeneratorResolver
      */
     public function __construct(Reader $annotationReader)
     {
         $this->annotationReader = $annotationReader;
+    }
+
+    /**
+     * @param SchemaGeneratorResolver $schemaGeneratorResolver
+     */
+    public function setSchemaGeneratorResolver(SchemaGeneratorResolver $schemaGeneratorResolver): void
+    {
+        $this->schemaGeneratorResolver = $schemaGeneratorResolver;
     }
 
     /**
@@ -39,10 +55,11 @@ class Generator implements GeneratorInterface
         $this->propertyGeneratorResolver = $propertyGeneratorResolver;
     }
 
+
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
-    public function generate(string $class): array
+    public function generate(string $class) :array
     {
         try {
             $object = new \ReflectionClass($class);
@@ -56,7 +73,7 @@ class Generator implements GeneratorInterface
             throw new GeneratorException('schema class not found.');
         }
 
-        $properties = [];
+
         foreach ($object->getProperties() as $propertyReflection) {
             /** @var Property $property */
             $property = $this->annotationReader->getPropertyAnnotation($propertyReflection, PropertyInterface::class);
@@ -71,6 +88,9 @@ class Generator implements GeneratorInterface
             }
         }
 
-        return array_merge($schema->toArray(), ['properties' => $properties]);
+
+        $schemaGenerator = $this->schemaGeneratorResolver->resolve($schema);
+        return array_merge($schemaGenerator->generate($schema), ['properties' => $properties]);
+
     }
 }

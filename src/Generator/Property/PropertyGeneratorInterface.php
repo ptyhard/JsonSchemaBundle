@@ -6,7 +6,7 @@ namespace Ptyhard\JsonSchemaBundle\Generator\Property;
 
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
 
-interface GeneratorInterface
+interface PropertyGeneratorInterface
 {
     /**
      * @param PropertyInterface $property

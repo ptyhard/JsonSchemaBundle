@@ -6,29 +6,29 @@ namespace Ptyhard\JsonSchemaBundle\Generator\Property\Generators;
 
 use Ptyhard\JsonSchemaBundle\Annotations\Property\ObjectProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
-use Ptyhard\JsonSchemaBundle\Generator\Property\GeneratorInterface as PropertyGeneratorInterface;
-use Ptyhard\JsonSchemaBundle\Generator\Schema\GeneratorInterface as SchemaGeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\GeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\Property\PropertyGeneratorInterface;
 
-class ObjectGenerator implements PropertyGeneratorInterface
+class ObjectPropertyGenerator implements PropertyGeneratorInterface
 {
     /**
-     * @var SchemaGeneratorInterface
+     * @var GeneratorInterface
      */
-    private $schemaGenerator;
+    private $generator;
 
     /**
-     * @param SchemaGeneratorInterface $schemaGenerator
+     * @param GeneratorInterface $schemaGenerator
      */
-    public function __construct(SchemaGeneratorInterface $schemaGenerator)
+    public function __construct(GeneratorInterface $generator)
     {
-        $this->schemaGenerator = $schemaGenerator;
+        $this->generator = $generator;
     }
 
     public function generate(PropertyInterface $property): array
     {
         $data = $property->toArray();
         if (isset($data['class']) && null !== $data['class']) {
-            return array_filter($this->schemaGenerator->generate($data['class']), function ($key) {
+            return array_filter($this->generator->generate($data['class']), function ($key) {
                 return '$schema' !== $key && 'class' !== $key;
             }, ARRAY_FILTER_USE_KEY);
         }

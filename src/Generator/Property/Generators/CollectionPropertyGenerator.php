@@ -6,28 +6,28 @@ namespace Ptyhard\JsonSchemaBundle\Generator\Property\Generators;
 
 use Ptyhard\JsonSchemaBundle\Annotations\Property\CollectionProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
-use Ptyhard\JsonSchemaBundle\Generator\Property\GeneratorInterface as PropertyGeneratorInterface;
-use Ptyhard\JsonSchemaBundle\Generator\Schema\GeneratorInterface as SchemaGeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\GeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\Property\PropertyGeneratorInterface;
 
-class CollectionGenerator implements PropertyGeneratorInterface
+class CollectionPropertyGenerator implements PropertyGeneratorInterface
 {
     /**
-     * @var SchemaGeneratorInterface
+     * @var GeneratorInterface
      */
-    private $schemaGenerator;
+    private $generator;
 
     /**
-     * @param SchemaGeneratorInterface $schemaGenerator
+     * @param GeneratorInterface $schemaGenerator
      */
-    public function __construct(SchemaGeneratorInterface $schemaGenerator)
+    public function __construct(GeneratorInterface $generator)
     {
-        $this->schemaGenerator = $schemaGenerator;
+        $this->generator = $generator;
     }
 
     public function generate(PropertyInterface $property): array
     {
         $data = $property->toArray();
-        $data['items'] = $this->schemaGenerator->generate($data['class']);
+        $data['items'] = $this->generator->generate($data['class']);
         unset($data['items']['$schema'], $data['class']);
 
         return $data;

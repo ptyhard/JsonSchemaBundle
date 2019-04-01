@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Ptyhard\JsonSchemaBundle\Generator\Schema;
 
+use Ptyhard\JsonSchemaBundle\Annotations\Schema;
 use Ptyhard\JsonSchemaBundle\Exception\GeneratorException;
 
-interface GeneratorInterface
+interface SchemaGeneratorInterface
 {
     /**
      * @param string $class format class name
@@ -15,5 +16,12 @@ interface GeneratorInterface
      *
      * @throws GeneratorException
      */
-    public function generate(string $class): array;
+    public function generate(Schema $schema): array;
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function supported(Schema $schema): bool;
+
 }

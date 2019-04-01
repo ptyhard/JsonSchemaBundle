@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ptyhard\JsonSchemaBundle\EventListener;
 
-use Ptyhard\JsonSchemaBundle\Generator\Schema\GeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\GeneratorInterface;
 use Ptyhard\JsonSchemaBundle\SchemaObject\CheckerInterface;
 use Ptyhard\JsonSchemaBundle\SchemaObject\ExporterInterface;
 use Ptyhard\JsonSchemaBundle\Validator\ValidatorInterface;
@@ -16,7 +16,7 @@ class SchemaObjectValidationListener
     /**
      * @var GeneratorInterface
      */
-    private $schemaGenerator;
+    private $generator;
 
     /**
      * @var ValidatorInterface
@@ -34,14 +34,14 @@ class SchemaObjectValidationListener
     private $checker;
 
     /**
-     * @param GeneratorInterface $schemaGenerator
+     * @param GeneratorInterface $generator
      * @param ValidatorInterface $validator
      * @param ExporterInterface  $exporter
      * @param CheckerInterface   $checker
      */
-    public function __construct(GeneratorInterface $schemaGenerator, ValidatorInterface $validator, ExporterInterface $exporter, CheckerInterface $checker)
+    public function __construct(GeneratorInterface $generator, ValidatorInterface $validator, ExporterInterface $exporter, CheckerInterface $checker)
     {
-        $this->schemaGenerator = $schemaGenerator;
+        $this->generator = $generator;
         $this->validator = $validator;
         $this->exporter = $exporter;
         $this->checker = $checker;
@@ -62,7 +62,7 @@ class SchemaObjectValidationListener
         }
 
         $argument = array_pop($arguments);
-        $schema = $this->schemaGenerator->generate(\get_class($argument));
+        $schema = $this->generator->generate(\get_class($argument));
         $this->validator->check($this->exporter->export($argument), $schema);
     }
 
@@ -71,7 +71,7 @@ class SchemaObjectValidationListener
         if (false === $this->isSchemaObject($event->getControllerResult())) {
             return;
         }
-        $schema = $this->schemaGenerator->generate(\get_class($event->getControllerResult()));
+        $schema = $this->generator->generate(\get_class($event->getControllerResult()));
         $data = $this->exporter->export($event->getControllerResult());
         $this->validator->check($data, $schema);
 

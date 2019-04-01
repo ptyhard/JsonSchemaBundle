@@ -9,7 +9,10 @@ namespace Ptyhard\JsonSchemaBundle\Annotations;
  */
 class Schema implements JsonSchemaInterface
 {
-    private $schema = 'http://json-schema.org/draft-07/schema#';
+    /**
+     * @var string
+     */
+    private $file;
 
     /**
      * @var array
@@ -23,17 +26,25 @@ class Schema implements JsonSchemaInterface
 
     public function __construct(array $params)
     {
-        foreach (['required', 'schema'] as $target) {
+        foreach (['required', 'file'] as $target) {
             if (isset($params[$target])) {
                 $this->$target = $params[$target];
             }
         }
     }
 
+    /**
+     * @return string
+     */
+    public function getFile() :string
+    {
+        return $this->file;
+    }
+
     public function toArray()
     {
         return [
-            '$schema' => $this->schema,
+            '$schema' => 'http://json-schema.org/draft-07/schema#',
             'required' => $this->required,
             'type' => $this->type,
         ];

@@ -18,8 +18,8 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('ptyhard_json_schema');
         $rootNode
             ->children()
-                ->booleanNode('use_jms_serializer')
-                ->defaultTrue()
+                ->booleanNode('use_jms_serializer')->defaultTrue()->end()
+                ->scalarNode('json_file_directory')->defaultNull()->end()
             ->end();
 
         return $treeBuilder;
