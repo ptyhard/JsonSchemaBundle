@@ -8,7 +8,6 @@ use Psr\SimpleCache\CacheInterface;
 use Ptyhard\JsonSchemaBundle\Annotations\JsonSchemaInterface;
 use Ptyhard\JsonSchemaBundle\Annotations\SchemaFile;
 use Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorInterface;
-use Symfony\Component\Cache\Simple\FilesystemCache;
 
 class FileGenerator implements SchemaGeneratorInterface
 {
@@ -20,22 +19,22 @@ class FileGenerator implements SchemaGeneratorInterface
     /**
      * @var string
      */
-    private $baesFilePath;
+    private $baseFilePath;
 
     /**
-     * @param FilesystemCache $cache
-     * @param string          $baesFilePath
+     * @param CacheInterface $cache
+     * @param string          $baseFilePath
      */
-    public function __construct(CacheInterface $cache, string $baesFilePath)
+    public function __construct(CacheInterface $cache, string $baseFilePath)
     {
         $this->cache = $cache;
-        $this->baesFilePath = $baesFilePath;
+        $this->baseFilePath = $baseFilePath;
     }
 
     public function generate(JsonSchemaInterface $schema): array
     {
         \assert($schema instanceof SchemaFile);
-        $path = $this->baesFilePath.'/'.$schema->getFile();
+        $path = $this->baseFilePath.'/'.$schema->getFile();
         $key = 'json_schema_'.md5($path);
 
         if ($this->cache->has($key)) {
