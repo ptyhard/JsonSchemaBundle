@@ -6,7 +6,7 @@ namespace Ptyhard\JsonSchemaBundle\Generator;
 
 use Ptyhard\JsonSchemaBundle\Exception\GeneratorException;
 
-interface GeneratorInterface
+interface ClassGeneratorInterface
 {
     /**
      * @param string $class

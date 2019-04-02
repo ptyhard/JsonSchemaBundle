@@ -6,20 +6,20 @@ namespace Ptyhard\JsonSchemaBundle\Generator\Property\Generators;
 
 use Ptyhard\JsonSchemaBundle\Annotations\Property\CollectionProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
-use Ptyhard\JsonSchemaBundle\Generator\GeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\ClassGeneratorInterface;
 use Ptyhard\JsonSchemaBundle\Generator\Property\PropertyGeneratorInterface;
 
 class CollectionPropertyGenerator implements PropertyGeneratorInterface
 {
     /**
-     * @var GeneratorInterface
+     * @var ClassGeneratorInterface
      */
     private $generator;
 
     /**
-     * @param GeneratorInterface $schemaGenerator
+     * @param ClassGeneratorInterface $schemaGenerator
      */
-    public function __construct(GeneratorInterface $generator)
+    public function __construct(ClassGeneratorInterface $generator)
     {
         $this->generator = $generator;
     }

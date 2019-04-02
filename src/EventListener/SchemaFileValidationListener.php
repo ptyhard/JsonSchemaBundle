@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 
 class SchemaFileValidationListener
 {
-    private const JSON_SCHEMA_ATTR = 'json_schema';
+    private const JSON_SCHEMA_ATTR = 'json_schema.file';
 
     /**
      * @var AnnotationReader
@@ -29,6 +29,18 @@ class SchemaFileValidationListener
      * @var ValidatorInterface
      */
     private $validator;
+
+    /**
+     * @param AnnotationReader        $annotationReader
+     * @param SchemaGeneratorResolver $schemaGeneratorResolver
+     * @param ValidatorInterface      $validator
+     */
+    public function __construct(AnnotationReader $annotationReader, SchemaGeneratorResolver $schemaGeneratorResolver, ValidatorInterface $validator)
+    {
+        $this->annotationReader = $annotationReader;
+        $this->schemaGeneratorResolver = $schemaGeneratorResolver;
+        $this->validator = $validator;
+    }
 
     /**
      * @param FilterControllerEvent $event
@@ -54,17 +66,25 @@ class SchemaFileValidationListener
             $this->getAnnotations($this->annotationReader->getMethodAnnotations($method))
         );
 
+        if (empty($schemaAnnotations)) {
+            return;
+        }
+
         foreach ($schemaAnnotations as $annotation) {
             if ($annotation->isRequestCheck()) {
                 $this->validator->check(
                     json_decode($request->getContent()),
                     $this->schemaGeneratorResolver->resolve($annotation)->generate($annotation)
                 );
+                break;
             }
         }
         $request->attributes->set(self::JSON_SCHEMA_ATTR, $schemaAnnotations);
     }
 
+    /**
+     * @param GetResponseForControllerResultEvent $event
+     */
     public function onKernelView(GetResponseForControllerResultEvent $event): void
     {
         if (false === \is_array($event->getControllerResult())) {
@@ -84,6 +104,7 @@ class SchemaFileValidationListener
                     json_decode($request->getContent()),
                     $this->schemaGeneratorResolver->resolve($annotation)->generate($annotation)
                 );
+                break;
             }
         }
     }

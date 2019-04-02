@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\ArrayProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\NumberProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty;
-use Ptyhard\JsonSchemaBundle\Generator\Generator;
+use Ptyhard\JsonSchemaBundle\Generator\ClassClassGenerator;
 use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\CollectionPropertyGenerator;
 use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\DefaultPropertyGenerator;
 use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\ObjectPropertyGenerator;
@@ -19,7 +19,7 @@ use Ptyhard\JsonSchemaBundle\Tests\Schema\User;
 class GeneratorTest extends TestCase
 {
     /**
-     * @var Generator
+     * @var ClassClassGenerator
      */
     private $generator;
 
@@ -28,7 +28,7 @@ class GeneratorTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->generator = new Generator(new AnnotationReader());
+        $this->generator = new ClassClassGenerator(new AnnotationReader());
         $defaultGenerator = new DefaultPropertyGenerator([StringProperty::class, NumberProperty::class, ArrayProperty::class]);
         $collectionGenerator = new CollectionPropertyGenerator($this->generator);
         $objectGenerator = new ObjectPropertyGenerator($this->generator);

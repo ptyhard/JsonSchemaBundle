@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ptyhard\JsonSchemaBundle\EventListener;
 
-use Ptyhard\JsonSchemaBundle\Generator\GeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\ClassGeneratorInterface;
 use Ptyhard\JsonSchemaBundle\SchemaObject\CheckerInterface;
 use Ptyhard\JsonSchemaBundle\SchemaObject\ExporterInterface;
 use Ptyhard\JsonSchemaBundle\Validator\ValidatorInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 class SchemaClassValidationListener
 {
     /**
-     * @var GeneratorInterface
+     * @var ClassGeneratorInterface
      */
     private $generator;
 
@@ -34,12 +34,12 @@ class SchemaClassValidationListener
     private $checker;
 
     /**
-     * @param GeneratorInterface $generator
+     * @param ClassGeneratorInterface $generator
      * @param ValidatorInterface $validator
      * @param ExporterInterface  $exporter
      * @param CheckerInterface   $checker
      */
-    public function __construct(GeneratorInterface $generator, ValidatorInterface $validator, ExporterInterface $exporter, CheckerInterface $checker)
+    public function __construct(ClassGeneratorInterface $generator, ValidatorInterface $validator, ExporterInterface $exporter, CheckerInterface $checker)
     {
         $this->generator = $generator;
         $this->validator = $validator;
