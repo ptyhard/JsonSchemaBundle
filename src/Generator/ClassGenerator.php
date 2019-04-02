@@ -12,7 +12,7 @@ use Ptyhard\JsonSchemaBundle\Exception\GeneratorException;
 use Ptyhard\JsonSchemaBundle\Generator\Property\PropertyGeneratorResolver;
 use Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorResolver;
 
-class ClassClassGenerator implements ClassGeneratorInterface
+class ClassGenerator implements ClassGeneratorInterface
 {
     /**
      * @var Reader

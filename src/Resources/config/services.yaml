@@ -11,11 +11,17 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.exception, priority: '%ptyhard_json_schema_bundle.exception_listener_priority%' }
 
-    Ptyhard\JsonSchemaBundle\EventListener\SchemaObjectValidationListener:
+    Ptyhard\JsonSchemaBundle\EventListener\SchemaClassValidationListener:
         autowire: true
         tags:
           - { name: kernel.event_listener, event: kernel.controller_arguments}
           - { name: kernel.event_listener, event: kernel.view }
+
+    Ptyhard\JsonSchemaBundle\EventListener\SchemaFileValidationListener:
+        autowire: true
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller }
+            - { name: kernel.event_listener, event: kernel.view }
 
     # property generator
 
@@ -59,7 +65,7 @@ services:
         class: Symfony\Component\Cache\Simple\FilesystemCache
 
     # Generator
-    Ptyhard\JsonSchemaBundle\Generator\Generator:
+    Ptyhard\JsonSchemaBundle\Generator\ClassGenerator:
         autowire: true
         calls:
             - method: setSchemaGeneratorResolver

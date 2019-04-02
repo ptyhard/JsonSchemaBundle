@@ -16,7 +16,7 @@ class SchemaClassValidationListener
     /**
      * @var ClassGeneratorInterface
      */
-    private $generator;
+    private $classGenerator;
 
     /**
      * @var ValidatorInterface
@@ -34,14 +34,14 @@ class SchemaClassValidationListener
     private $checker;
 
     /**
-     * @param ClassGeneratorInterface $generator
+     * @param ClassGeneratorInterface $classGenerator
      * @param ValidatorInterface $validator
      * @param ExporterInterface  $exporter
      * @param CheckerInterface   $checker
      */
-    public function __construct(ClassGeneratorInterface $generator, ValidatorInterface $validator, ExporterInterface $exporter, CheckerInterface $checker)
+    public function __construct(ClassGeneratorInterface $classGenerator, ValidatorInterface $validator, ExporterInterface $exporter, CheckerInterface $checker)
     {
-        $this->generator = $generator;
+        $this->classGenerator = $classGenerator;
         $this->validator = $validator;
         $this->exporter = $exporter;
         $this->checker = $checker;
@@ -62,7 +62,7 @@ class SchemaClassValidationListener
         }
 
         $argument = array_pop($arguments);
-        $schema = $this->generator->generate(\get_class($argument));
+        $schema = $this->classGenerator->generate(\get_class($argument));
         $this->validator->check($this->exporter->export($argument), $schema);
     }
 
@@ -72,7 +72,7 @@ class SchemaClassValidationListener
             return;
         }
 
-        $schema = $this->generator->generate(\get_class($event->getControllerResult()));
+        $schema = $this->classGenerator->generate(\get_class($event->getControllerResult()));
         $data = $this->exporter->export($event->getControllerResult());
         $this->validator->check($data, $schema);
 
