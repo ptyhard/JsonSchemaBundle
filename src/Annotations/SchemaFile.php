@@ -14,13 +14,18 @@ class SchemaFile implements JsonSchemaInterface
      */
     private $file;
 
+    /**
+     * @var array
+     */
+    private $type;
+
     public function __construct(array $params)
     {
         if (isset($params['value'])) {
             $this->file = $params['value'];
         }
 
-        foreach (['file'] as $target) {
+        foreach (['file', 'type'] as $target) {
             if (isset($params[$target])) {
                 $this->$target = $params[$target];
             }
@@ -33,5 +38,15 @@ class SchemaFile implements JsonSchemaInterface
     public function getFile(): string
     {
         return $this->file;
+    }
+
+    public function isRequestCheck(): bool
+    {
+        return \in_array('request', $this->type);
+    }
+
+    public function isResponseCheck(): bool
+    {
+        return \in_array('response', $this->type);
     }
 }

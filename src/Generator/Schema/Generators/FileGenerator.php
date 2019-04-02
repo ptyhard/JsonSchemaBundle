@@ -23,7 +23,7 @@ class FileGenerator implements SchemaGeneratorInterface
 
     /**
      * @param CacheInterface $cache
-     * @param string          $baseFilePath
+     * @param string         $baseFilePath
      */
     public function __construct(CacheInterface $cache, string $baseFilePath)
     {
