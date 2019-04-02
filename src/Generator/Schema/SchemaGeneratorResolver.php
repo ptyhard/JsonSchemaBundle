@@ -1,12 +1,12 @@
 <?php
 
-namespace Ptyhard\JsonSchemaBundle\Generator\Schema;
+declare(strict_types=1);
 
+namespace Ptyhard\JsonSchemaBundle\Generator\Schema;
 
 use Ptyhard\JsonSchemaBundle\Annotations\JsonSchemaInterface;
 use Ptyhard\JsonSchemaBundle\Annotations\Schema;
 use Ptyhard\JsonSchemaBundle\Exception\SchemaGeneratorException;
-use Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorInterface;
 
 class SchemaGeneratorResolver
 {
@@ -25,11 +25,12 @@ class SchemaGeneratorResolver
 
     /**
      * @param Schema $schema
+     *
      * @return GeneratorInterface
      *
      * @throws SchemaGeneratorException
      */
-    public function resolve(JsonSchemaInterface $schema) :SchemaGeneratorInterface
+    public function resolve(JsonSchemaInterface $schema): SchemaGeneratorInterface
     {
         /** @var GeneratorInterface $generator */
         foreach ($this->generators as $generator) {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ptyhard\JsonSchemaBundle\Annotations;
 
 /**
@@ -32,5 +34,4 @@ class SchemaFile implements JsonSchemaInterface
     {
         return $this->file;
     }
-
 }

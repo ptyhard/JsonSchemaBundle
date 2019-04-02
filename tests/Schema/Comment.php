@@ -6,10 +6,10 @@ namespace Ptyhard\JsonSchemaBundle\Tests\Schema;
 
 use Ptyhard\JsonSchemaBundle\Annotations\Property\NumberProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty;
-use Ptyhard\JsonSchemaBundle\Annotations\Schema;
+use Ptyhard\JsonSchemaBundle\Annotations\SchemaClass;
 
 /**
- * @Schema(required={"title", "comment"})
+ * @SchemaClass(required={"title", "comment"})
  */
 class Comment
 {

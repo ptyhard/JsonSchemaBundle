@@ -10,18 +10,18 @@ use Ptyhard\JsonSchemaBundle\Exception\GeneratorException;
 interface SchemaGeneratorInterface
 {
     /**
-     * @param string $class format class name
+     * @param JsonSchemaInterface $schema
      *
-     * @return array schema array
+     * @return array
      *
      * @throws GeneratorException
      */
     public function generate(JsonSchemaInterface $schema): array;
 
     /**
-     * @param string $name
+     * @param JsonSchemaInterface $schema
+     *
      * @return bool
      */
     public function supported(JsonSchemaInterface $schema): bool;
-
 }

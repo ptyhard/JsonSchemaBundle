@@ -71,6 +71,9 @@ class SchemaObjectValidationListener
         if (false === $this->isSchemaObject($event->getControllerResult())) {
             return;
         }
+
+
+
         $schema = $this->generator->generate(\get_class($event->getControllerResult()));
         $data = $this->exporter->export($event->getControllerResult());
         $this->validator->check($data, $schema);

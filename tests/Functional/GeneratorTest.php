@@ -9,11 +9,11 @@ use PHPUnit\Framework\TestCase;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\ArrayProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\NumberProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty;
-use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\CollectionGenerator;
-use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\DefaultGenerator;
-use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\ObjectGenerator;
+use Ptyhard\JsonSchemaBundle\Generator\Generator;
+use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\CollectionPropertyGenerator;
+use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\DefaultPropertyGenerator;
+use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\ObjectPropertyGenerator;
 use Ptyhard\JsonSchemaBundle\Generator\Property\PropertyGeneratorResolver;
-use Ptyhard\JsonSchemaBundle\Generator\Schema\Generator;
 use Ptyhard\JsonSchemaBundle\Tests\Schema\User;
 
 class GeneratorTest extends TestCase
@@ -29,9 +29,9 @@ class GeneratorTest extends TestCase
     public function setUp(): void
     {
         $this->generator = new Generator(new AnnotationReader());
-        $defaultGenerator = new DefaultGenerator([StringProperty::class, NumberProperty::class, ArrayProperty::class]);
-        $collectionGenerator = new CollectionGenerator($this->generator);
-        $objectGenerator = new ObjectGenerator($this->generator);
+        $defaultGenerator = new DefaultPropertyGenerator([StringProperty::class, NumberProperty::class, ArrayProperty::class]);
+        $collectionGenerator = new CollectionPropertyGenerator($this->generator);
+        $objectGenerator = new ObjectPropertyGenerator($this->generator);
 
         $resolver = new PropertyGeneratorResolver([
             $defaultGenerator,

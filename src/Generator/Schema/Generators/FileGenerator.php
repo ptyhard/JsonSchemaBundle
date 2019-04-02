@@ -1,7 +1,8 @@
 <?php
 
-namespace Ptyhard\JsonSchemaBundle\Generator\Schema\Generators;
+declare(strict_types=1);
 
+namespace Ptyhard\JsonSchemaBundle\Generator\Schema\Generators;
 
 use Psr\SimpleCache\CacheInterface;
 use Ptyhard\JsonSchemaBundle\Annotations\JsonSchemaInterface;
@@ -23,7 +24,7 @@ class FileGenerator implements SchemaGeneratorInterface
 
     /**
      * @param FilesystemCache $cache
-     * @param string $baesFilePath
+     * @param string          $baesFilePath
      */
     public function __construct(CacheInterface $cache, string $baesFilePath)
     {
@@ -31,10 +32,10 @@ class FileGenerator implements SchemaGeneratorInterface
         $this->baesFilePath = $baesFilePath;
     }
 
-    public function generate(JsonSchemaInterface $schema) :array
+    public function generate(JsonSchemaInterface $schema): array
     {
-        assert($schema instanceof SchemaFile);
-        $path = $this->baesFilePath . '/'. $schema->getFile();
+        \assert($schema instanceof SchemaFile);
+        $path = $this->baesFilePath.'/'.$schema->getFile();
         $key = 'json_schema_'.md5($path);
 
         if ($this->cache->has($key)) {
@@ -45,6 +46,7 @@ class FileGenerator implements SchemaGeneratorInterface
         $data = json_decode($json, true);
 
         $this->cache->set($key, $data);
+
         return $data;
     }
 
@@ -52,6 +54,4 @@ class FileGenerator implements SchemaGeneratorInterface
     {
         return $schema instanceof SchemaFile;
     }
-
-
 }

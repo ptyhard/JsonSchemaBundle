@@ -6,7 +6,7 @@ namespace Ptyhard\JsonSchemaBundle\Generator\Schema;
 
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
 
-interface PropertyGenrator
+interface PropertyGenerator
 {
     public function generate(PropertyInterface $property): array;
 }

@@ -21,9 +21,9 @@ class JsonSchemaExtension extends Extension
 
         $jsonFileDirectory = $config['json_file_directory'];
         if (null === $jsonFileDirectory) {
-            $jsonFileDirectory = $container->getParameter('kernel.project_dir') . '/config/json_schema';
+            $jsonFileDirectory = $container->getParameter('kernel.project_dir').'/config/json_schema';
         }
-        
+
         $container->setParameter('json_schema_bundle.json_file_directory', $jsonFileDirectory);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
