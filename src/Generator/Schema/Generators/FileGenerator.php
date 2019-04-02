@@ -4,7 +4,8 @@ namespace Ptyhard\JsonSchemaBundle\Generator\Schema\Generators;
 
 
 use Psr\SimpleCache\CacheInterface;
-use Ptyhard\JsonSchemaBundle\Annotations\Schema;
+use Ptyhard\JsonSchemaBundle\Annotations\JsonSchemaInterface;
+use Ptyhard\JsonSchemaBundle\Annotations\SchemaFile;
 use Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorInterface;
 use Symfony\Component\Cache\Simple\FilesystemCache;
 
@@ -30,8 +31,9 @@ class FileGenerator implements SchemaGeneratorInterface
         $this->baesFilePath = $baesFilePath;
     }
 
-    public function generate(Schema $schema) :array
+    public function generate(JsonSchemaInterface $schema) :array
     {
+        assert($schema instanceof SchemaFile);
         $path = $this->baesFilePath . '/'. $schema->getFile();
         $key = 'json_schema_'.md5($path);
 
@@ -46,9 +48,9 @@ class FileGenerator implements SchemaGeneratorInterface
         return $data;
     }
 
-    public function supported(Schema $schema): bool
+    public function supported(JsonSchemaInterface $schema): bool
     {
-        return $schema->getFile() !== null;
+        return $schema instanceof SchemaFile;
     }
 
 

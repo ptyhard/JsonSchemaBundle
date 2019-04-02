@@ -3,6 +3,7 @@
 namespace Ptyhard\JsonSchemaBundle\Generator\Schema;
 
 
+use Ptyhard\JsonSchemaBundle\Annotations\JsonSchemaInterface;
 use Ptyhard\JsonSchemaBundle\Annotations\Schema;
 use Ptyhard\JsonSchemaBundle\Exception\SchemaGeneratorException;
 use Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorInterface;
@@ -28,7 +29,7 @@ class SchemaGeneratorResolver
      *
      * @throws SchemaGeneratorException
      */
-    public function resolve(Schema $schema) :SchemaGeneratorInterface
+    public function resolve(JsonSchemaInterface $schema) :SchemaGeneratorInterface
     {
         /** @var GeneratorInterface $generator */
         foreach ($this->generators as $generator) {

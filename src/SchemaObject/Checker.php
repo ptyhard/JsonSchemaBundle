@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ptyhard\JsonSchemaBundle\SchemaObject;
 
 use Doctrine\Common\Annotations\Reader;
-use Ptyhard\JsonSchemaBundle\Annotations\Schema;
+use Ptyhard\JsonSchemaBundle\Annotations\JsonSchemaInterface;
 
 class Checker implements CheckerInterface
 {
@@ -30,13 +30,13 @@ class Checker implements CheckerInterface
 
         $ref = new \ReflectionObject($object);
 
-        return null !== $this->reader->getClassAnnotation($ref, Schema::class);
+        return null !== $this->reader->getClassAnnotation($ref, JsonSchemaInterface::class);
     }
 
     public function isSchemaClass(string $class): bool
     {
         $ref = new \ReflectionClass($class);
 
-        return null !== $this->reader->getClassAnnotation($ref, Schema::class);
+        return null !== $this->reader->getClassAnnotation($ref, JsonSchemaInterface::class);
     }
 }

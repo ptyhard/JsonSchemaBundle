@@ -6,6 +6,7 @@ namespace Ptyhard\JsonSchemaBundle\Generator;
 
 
 use Doctrine\Common\Annotations\Reader;
+use Ptyhard\JsonSchemaBundle\Annotations\JsonSchemaInterface;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\Property;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
 use Ptyhard\JsonSchemaBundle\Annotations\Schema;
@@ -68,7 +69,7 @@ class Generator implements GeneratorInterface
         }
 
         /** @var Schema $schema */
-        $schema = $this->annotationReader->getClassAnnotation($object, Schema::class);
+        $schema = $this->annotationReader->getClassAnnotation($object, JsonSchemaInterface::class);
         if (null === $schema) {
             throw new GeneratorException('schema class not found.');
         }

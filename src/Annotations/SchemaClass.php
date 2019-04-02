@@ -7,13 +7,8 @@ namespace Ptyhard\JsonSchemaBundle\Annotations;
 /**
  * @Annotation
  */
-class Schema implements JsonSchemaInterface
+class SchemaClass implements JsonSchemaInterface
 {
-    /**
-     * @var string
-     */
-    private $file;
-
     /**
      * @var array
      */
@@ -26,19 +21,11 @@ class Schema implements JsonSchemaInterface
 
     public function __construct(array $params)
     {
-        foreach (['required', 'file'] as $target) {
+        foreach (['required'] as $target) {
             if (isset($params[$target])) {
                 $this->$target = $params[$target];
             }
         }
-    }
-
-    /**
-     * @return string
-     */
-    public function getFile() :string
-    {
-        return $this->file;
     }
 
     public function toArray()

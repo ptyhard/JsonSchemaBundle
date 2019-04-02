@@ -21,7 +21,7 @@ class PropertyGeneratorResolver
         $this->generators = $generators;
     }
 
-    public function resolve(string $type): GeneratorInterface
+    public function resolve(string $type): PropertyGeneratorInterface
     {
         /** @var GeneratorInterface $generator */
         foreach ($this->generators as $generator) {
