@@ -97,4 +97,4 @@ services:
     Ptyhard\JsonSchemaBundle\SchemaObject\FactoryInterface: '@Ptyhard\JsonSchemaBundle\SchemaObject\Factory'
     Ptyhard\JsonSchemaBundle\SchemaObject\ExporterInterface: '@Ptyhard\JsonSchemaBundle\SchemaObject\Exporter'
     Ptyhard\JsonSchemaBundle\SchemaObject\CheckerInterface: '@Ptyhard\JsonSchemaBundle\SchemaObject\Checker'
-    Ptyhard\JsonSchemaBundle\Generator\GeneratorInterface: '@Ptyhard\JsonSchemaBundle\Generator\Generator'
+    Ptyhard\JsonSchemaBundle\Generator\ClassGeneratorInterface: '@Ptyhard\JsonSchemaBundle\Generator\ClassGenerator'
