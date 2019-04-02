@@ -53,7 +53,7 @@ services:
         autowire: true
         arguments:
             $cache: '@ptyhard.json_schema_bundle.cache'
-            $baesFilePath: '%json_schema_bundle.json_file_directory%'
+            $baseFilePath: '%json_schema_bundle.json_file_directory%'
 
     Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorResolver:
         arguments:
