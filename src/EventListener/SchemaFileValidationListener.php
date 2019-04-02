@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ptyhard\JsonSchemaBundle\EventListener;
 
-use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\Reader;
 use Ptyhard\JsonSchemaBundle\Annotations\SchemaFile;
 use Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorResolver;
 use Ptyhard\JsonSchemaBundle\Validator\ValidatorInterface;
@@ -16,7 +16,7 @@ class SchemaFileValidationListener
     private const JSON_SCHEMA_ATTR = 'json_schema.file';
 
     /**
-     * @var AnnotationReader
+     * @var Reader
      */
     private $annotationReader;
 
@@ -31,11 +31,11 @@ class SchemaFileValidationListener
     private $validator;
 
     /**
-     * @param AnnotationReader        $annotationReader
+     * @param Reader        $annotationReader
      * @param SchemaGeneratorResolver $schemaGeneratorResolver
      * @param ValidatorInterface      $validator
      */
-    public function __construct(AnnotationReader $annotationReader, SchemaGeneratorResolver $schemaGeneratorResolver, ValidatorInterface $validator)
+    public function __construct(Reader $annotationReader, SchemaGeneratorResolver $schemaGeneratorResolver, ValidatorInterface $validator)
     {
         $this->annotationReader = $annotationReader;
         $this->schemaGeneratorResolver = $schemaGeneratorResolver;
