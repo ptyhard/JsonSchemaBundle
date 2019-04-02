@@ -11,7 +11,7 @@ use Ptyhard\JsonSchemaBundle\Validator\ValidatorInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerArgumentsEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 
-class SchemaObjectValidationListener
+class SchemaClassValidationListener
 {
     /**
      * @var GeneratorInterface
@@ -71,8 +71,6 @@ class SchemaObjectValidationListener
         if (false === $this->isSchemaObject($event->getControllerResult())) {
             return;
         }
-
-
 
         $schema = $this->generator->generate(\get_class($event->getControllerResult()));
         $data = $this->exporter->export($event->getControllerResult());
