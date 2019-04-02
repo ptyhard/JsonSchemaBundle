@@ -20,7 +20,7 @@ services:
     Ptyhard\JsonSchemaBundle\EventListener\SchemaFileValidationListener:
         autowire: true
         tags:
-            - { name: kernel.event_listener, event: kernel.controller }
+            - { name: kernel.event_listener, event: kernel.controller  }
             - { name: kernel.event_listener, event: kernel.view }
 
     # property generator
