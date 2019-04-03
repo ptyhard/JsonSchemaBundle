@@ -6,6 +6,6 @@ namespace Ptyhard\JsonSchemaBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class JsonSchemaBundle extends Bundle
+class PtyhardJsonSchemaBundle extends Bundle
 {
 }
