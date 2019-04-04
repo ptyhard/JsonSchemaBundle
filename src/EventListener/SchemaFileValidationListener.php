@@ -73,7 +73,7 @@ class SchemaFileValidationListener
         foreach ($schemaAnnotations as $annotation) {
             if ($annotation->isRequestCheck()) {
                 $this->validator->check(
-                    json_decode($request->getContent()),
+                    json_decode($request->getContent(), true),
                     $this->schemaGeneratorResolver->resolve($annotation)->generate($annotation)
                 );
                 break;
@@ -101,7 +101,7 @@ class SchemaFileValidationListener
         foreach ($schemaAnnotations as $annotation) {
             if ($annotation->isResponseCheck()) {
                 $this->validator->check(
-                    json_decode($request->getContent()),
+                    $event->getControllerResult(),
                     $this->schemaGeneratorResolver->resolve($annotation)->generate($annotation)
                 );
                 break;
