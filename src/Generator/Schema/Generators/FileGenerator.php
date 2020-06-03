@@ -30,8 +30,8 @@ class FileGenerator implements SchemaGeneratorInterface
     public function generate(JsonSchemaInterface $schema): array
     {
         \assert($schema instanceof SchemaFile);
-        $path = $this->baseFilePath.'/'.$schema->getFile();
-        $key = 'json_schema_'.md5($path);
+        $path = $this->baseFilePath . '/' . $schema->getFile();
+        $key = 'json_schema_' . md5($path);
 
         if ($this->cache->has($key)) {
             return $this->cache->get($key);

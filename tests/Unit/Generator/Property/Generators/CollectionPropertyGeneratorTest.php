@@ -5,17 +5,21 @@ declare(strict_types=1);
 namespace Ptyhard\JsonSchemaBundle\Tests\Unit\Generator\Property\Generators;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\ObjectProphecy;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
-use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\CollectionGenerator;
-use Ptyhard\JsonSchemaBundle\Generator\Schema\GeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\ClassGeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\CollectionPropertyGenerator;
 
-class CollectionGeneratorTest extends TestCase
+class CollectionPropertyGeneratorTest extends TestCase
 {
+    /**
+     * @var ClassGeneratorInterface|ObjectProphecy
+     */
     private $schemaGenerator;
 
     public function setUp(): void
     {
-        $this->schemaGenerator = $this->prophesize(GeneratorInterface::class);
+        $this->schemaGenerator = $this->prophesize(ClassGeneratorInterface::class);
     }
 
     public function testGenerate(): void
@@ -34,7 +38,7 @@ class CollectionGeneratorTest extends TestCase
         $property->toArray()
             ->willReturn($data);
 
-        $collectionGenerator = new CollectionGenerator($this->schemaGenerator->reveal());
+        $collectionGenerator = new CollectionPropertyGenerator($this->schemaGenerator->reveal());
         $actual = $collectionGenerator->generate($property->reveal());
 
         $this->assertSame([

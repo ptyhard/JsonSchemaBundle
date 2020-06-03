@@ -5,34 +5,33 @@ declare(strict_types=1);
 namespace Ptyhard\JsonSchemaBundle\Generator\Schema;
 
 use Ptyhard\JsonSchemaBundle\Annotations\JsonSchemaInterface;
-use Ptyhard\JsonSchemaBundle\Annotations\Schema;
 use Ptyhard\JsonSchemaBundle\Exception\SchemaGeneratorException;
 
 class SchemaGeneratorResolver
 {
     /**
-     * @var GeneratorInterface[]
+     * @var SchemaGeneratorInterface[]
      */
-    private $generators;
+    private $generators = [];
 
     /**
-     * @param GeneratorInterface[] $generators
+     * @param SchemaGeneratorInterface[] $generators
      */
     public function __construct(array $generators)
     {
-        $this->generators = $generators;
+        foreach ($generators as $generator) {
+            $this->addGenerator($generator);
+        }
     }
 
-    /**
-     * @param Schema $schema
-     *
-     * @return GeneratorInterface
-     *
-     * @throws SchemaGeneratorException
-     */
+    public function addGenerator(SchemaGeneratorInterface $generator): void
+    {
+        $this->generators[] = $generator;
+    }
+
     public function resolve(JsonSchemaInterface $schema): SchemaGeneratorInterface
     {
-        /** @var GeneratorInterface $generator */
+        /** @var SchemaGeneratorInterface $generator */
         foreach ($this->generators as $generator) {
             if ($generator->supported($schema)) {
                 return $generator;

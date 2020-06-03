@@ -11,7 +11,7 @@ use Ptyhard\JsonSchemaBundle\SchemaObject\FactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-class SchemaDataResolverTest extends TestCase
+class SchemaClassResolverTest extends TestCase
 {
     private $factory;
 
@@ -36,7 +36,7 @@ class SchemaDataResolverTest extends TestCase
         $this->checker->isSchemaClass($type)
             ->willReturn(true);
 
-        $schemaClassResolver = $this->createSchemaClassReslver();
+        $schemaClassResolver = $this->createSchemaClassResolver();
         $schemaClassResolver->supports($request->reveal(), $argument->reveal());
 
         $this->checker->isSchemaClass($type)
@@ -56,7 +56,7 @@ class SchemaDataResolverTest extends TestCase
         $this->checker->isSchemaClass($type)
             ->willThrow(new \ReflectionException());
 
-        $schemaClassResolver = $this->createSchemaClassReslver();
+        $schemaClassResolver = $this->createSchemaClassResolver();
         $result = $schemaClassResolver->supports($request->reveal(), $argument->reveal());
 
         $this->checker->isSchemaClass($type)
@@ -65,7 +65,7 @@ class SchemaDataResolverTest extends TestCase
         $this->assertFalse($result);
     }
 
-    private function createSchemaClassReslver(): SchemaClassResolver
+    private function createSchemaClassResolver(): SchemaClassResolver
     {
         return new SchemaClassResolver($this->factory->reveal(), $this->checker->reveal());
     }

@@ -6,16 +6,19 @@ namespace Ptyhard\JsonSchemaBundle\Tests\Unit\Generator\Property\Generators;
 
 use PHPUnit\Framework\TestCase;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
-use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\ObjectGenerator;
-use Ptyhard\JsonSchemaBundle\Generator\Schema\GeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\ClassGeneratorInterface;
+use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\ObjectPropertyGenerator;
 
 class ObjectGeneratorTest extends TestCase
 {
-    private $schemaGenerator;
+    /**
+     * @var \Prophecy\Prophecy\ObjectProphecy
+     */
+    private $classGenerator;
 
     public function setUp(): void
     {
-        $this->schemaGenerator = $this->prophesize(GeneratorInterface::class);
+        $this->classGenerator = $this->prophesize(ClassGeneratorInterface::class);
     }
 
     public function testGenerate(): void
@@ -26,14 +29,14 @@ class ObjectGeneratorTest extends TestCase
             'a' => 'b',
         ];
 
-        $this->schemaGenerator->generate($data['class'])
+        $this->classGenerator->generate($data['class'])
             ->willReturn($data);
 
         $property = $this->prophesize(PropertyInterface::class);
         $property->toArray()
             ->willReturn($data);
 
-        $objectGenerator = new ObjectGenerator($this->schemaGenerator->reveal());
+        $objectGenerator = new ObjectPropertyGenerator($this->classGenerator->reveal());
         $actual = $objectGenerator->generate($property->reveal());
 
         $this->assertSame(['a' => 'b'], $actual);

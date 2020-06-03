@@ -6,9 +6,9 @@ namespace Ptyhard\JsonSchemaBundle\Tests\Unit\Generator\Property\Generators;
 
 use PHPUnit\Framework\TestCase;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
-use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\DefaultGenerator;
+use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\DefaultPropertyGenerator;
 
-class DefaultGeneratorTest extends TestCase
+class DefaultPropertyGeneratorTest extends TestCase
 {
     public function testGenerate(): void
     {
@@ -21,7 +21,7 @@ class DefaultGeneratorTest extends TestCase
         $property->toArray()
             ->willReturn($data);
 
-        $defaultGenerator = new DefaultGenerator(['a']);
+        $defaultGenerator = new DefaultPropertyGenerator(['a']);
         $actual = $defaultGenerator->generate($property->reveal());
         $this->assertSame(['name' => 'string'], $actual);
     }
