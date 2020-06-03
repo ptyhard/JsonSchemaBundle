@@ -1,4 +1,5 @@
 # JsonSchemaBundle
+![CI](https://github.com/ptyhard/JsonSchemaBundle/workflows/CI/badge.svg)
 
 JsonSchema Validate For Symfony Bundle.
 
@@ -41,11 +42,11 @@ Create Schema php class.
 
 namespace App\JsonSchema;
 
-use Ptyhard\JsonSchemaBundle\Annotations\Schema;
+use Ptyhard\JsonSchemaBundle\Annotations\SchemaClass;
 use Ptyhard\JsonSchemaBundle\Annotations\Property;
 
 /**
-* @Schema(required={"id","name"})
+* @SchemaClass(required={"id","name"})
  */
 class User 
 {
