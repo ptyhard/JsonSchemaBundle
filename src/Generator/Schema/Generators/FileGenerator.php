@@ -21,10 +21,6 @@ class FileGenerator implements SchemaGeneratorInterface
      */
     private $baseFilePath;
 
-    /**
-     * @param CacheInterface $cache
-     * @param string         $baseFilePath
-     */
     public function __construct(CacheInterface $cache, string $baseFilePath)
     {
         $this->cache = $cache;

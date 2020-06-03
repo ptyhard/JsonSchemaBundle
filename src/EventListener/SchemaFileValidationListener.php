@@ -30,11 +30,6 @@ class SchemaFileValidationListener
      */
     private $validator;
 
-    /**
-     * @param Reader        $annotationReader
-     * @param SchemaGeneratorResolver $schemaGeneratorResolver
-     * @param ValidatorInterface      $validator
-     */
     public function __construct(Reader $annotationReader, SchemaGeneratorResolver $schemaGeneratorResolver, ValidatorInterface $validator)
     {
         $this->annotationReader = $annotationReader;
@@ -43,8 +38,6 @@ class SchemaFileValidationListener
     }
 
     /**
-     * @param FilterControllerEvent $event
-     *
      * @throws \ReflectionException
      */
     public function onKernelController(FilterControllerEvent $event): void
@@ -82,9 +75,6 @@ class SchemaFileValidationListener
         $request->attributes->set(self::JSON_SCHEMA_ATTR, $schemaAnnotations);
     }
 
-    /**
-     * @param GetResponseForControllerResultEvent $event
-     */
     public function onKernelView(GetResponseForControllerResultEvent $event): void
     {
         if (false === \is_array($event->getControllerResult())) {

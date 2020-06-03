@@ -44,9 +44,6 @@ class User
     private $comments = [];
 
     /**
-     * @param int       $id
-     * @param string    $name
-     * @param Profile   $profile
      * @param Comment[] $comments
      */
     public function __construct(int $id, string $name, Profile $profile, array $comments)

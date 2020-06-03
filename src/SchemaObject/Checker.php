@@ -14,9 +14,6 @@ class Checker implements CheckerInterface
      */
     private $reader;
 
-    /**
-     * @param Reader $reader
-     */
     public function __construct(Reader $reader)
     {
         $this->reader = $reader;

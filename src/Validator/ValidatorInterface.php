@@ -9,9 +9,6 @@ use Ptyhard\JsonSchemaBundle\Exception\ValidationFailedException;
 interface ValidatorInterface
 {
     /**
-     * @param array $value
-     * @param array $schema
-     *
      * @throws ValidationFailedException
      */
     public function check(array $value, array $schema): void;

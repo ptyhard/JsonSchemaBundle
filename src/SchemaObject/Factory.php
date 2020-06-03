@@ -7,9 +7,6 @@ namespace Ptyhard\JsonSchemaBundle\SchemaObject;
 class Factory implements FactoryInterface
 {
     /**
-     * @param string $className
-     * @param array  $data
-     *
      * @return mixed
      */
     public function create(string $className, array $data)

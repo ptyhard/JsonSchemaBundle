@@ -8,8 +8,5 @@ use Ptyhard\JsonSchemaBundle\Annotations\JsonSchemaInterface;
 
 interface PropertyInterface extends JsonSchemaInterface
 {
-    /**
-     * @return array
-     */
     public function toArray(): array;
 }

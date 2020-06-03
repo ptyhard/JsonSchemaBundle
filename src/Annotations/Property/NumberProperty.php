@@ -37,9 +37,6 @@ class NumberProperty extends Property
      */
     private $exclusiveMinimum;
 
-    /**
-     * @param array $params
-     */
     public function __construct(array $params)
     {
         $params['type'] = 'number';

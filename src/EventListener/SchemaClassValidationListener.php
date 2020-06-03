@@ -33,12 +33,6 @@ class SchemaClassValidationListener
      */
     private $checker;
 
-    /**
-     * @param ClassGeneratorInterface $classGenerator
-     * @param ValidatorInterface $validator
-     * @param ExporterInterface  $exporter
-     * @param CheckerInterface   $checker
-     */
     public function __construct(ClassGeneratorInterface $classGenerator, ValidatorInterface $validator, ExporterInterface $exporter, CheckerInterface $checker)
     {
         $this->classGenerator = $classGenerator;
