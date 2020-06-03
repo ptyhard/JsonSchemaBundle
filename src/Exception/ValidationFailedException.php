@@ -19,9 +19,6 @@ class ValidationFailedException extends \RuntimeException implements JsonSchemaB
         return $e;
     }
 
-    /**
-     * @return array
-     */
     public function getErrors(): array
     {
         return $this->errors;

@@ -9,26 +9,26 @@ use Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Schema;
 
 /**
- * @Schema()
+ * @Schema
  */
 class Profile
 {
     /**
-     * @NumberProperty()
+     * @NumberProperty
      *
      * @var number
      */
     private $barthDay;
 
     /**
-     * @StringProperty()
+     * @StringProperty
      *
      * @var string
      */
     private $country;
 
     /**
-     * @StringProperty()
+     * @StringProperty
      *
      * @var string
      */

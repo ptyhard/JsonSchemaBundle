@@ -33,22 +33,21 @@ class SchemaClassValidationListener
      */
     private $checker;
 
-    /**
-     * @param ClassGeneratorInterface $classGenerator
-     * @param ValidatorInterface $validator
-     * @param ExporterInterface  $exporter
-     * @param CheckerInterface   $checker
-     */
-    public function __construct(ClassGeneratorInterface $classGenerator, ValidatorInterface $validator, ExporterInterface $exporter, CheckerInterface $checker)
-    {
+    public function __construct(
+        ClassGeneratorInterface $classGenerator,
+        ValidatorInterface $validator,
+        ExporterInterface $exporter,
+        CheckerInterface $checker
+    ) {
         $this->classGenerator = $classGenerator;
         $this->validator = $validator;
         $this->exporter = $exporter;
         $this->checker = $checker;
     }
 
-    public function onKernelControllerArguments(FilterControllerArgumentsEvent $event): void
-    {
+    public function onKernelControllerArguments(
+        FilterControllerArgumentsEvent $event
+    ): void {
         $arguments = array_filter($event->getArguments(), function ($argument) {
             return $this->isSchemaObject($argument);
         });
@@ -66,13 +65,16 @@ class SchemaClassValidationListener
         $this->validator->check($this->exporter->export($argument), $schema);
     }
 
-    public function onKernelView(GetResponseForControllerResultEvent $event): void
-    {
+    public function onKernelView(
+        GetResponseForControllerResultEvent $event
+    ): void {
         if (false === $this->isSchemaObject($event->getControllerResult())) {
             return;
         }
 
-        $schema = $this->classGenerator->generate(\get_class($event->getControllerResult()));
+        $schema = $this->classGenerator->generate(
+            \get_class($event->getControllerResult())
+        );
         $data = $this->exporter->export($event->getControllerResult());
         $this->validator->check($data, $schema);
 

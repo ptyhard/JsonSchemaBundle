@@ -42,9 +42,6 @@ class ArrayProperty extends Property
      */
     private $contains;
 
-    /**
-     * @param array $params
-     */
     public function __construct(array $params)
     {
         $params['type'] = 'array';

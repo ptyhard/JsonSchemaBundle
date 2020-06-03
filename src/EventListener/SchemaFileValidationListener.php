@@ -30,21 +30,17 @@ class SchemaFileValidationListener
      */
     private $validator;
 
-    /**
-     * @param Reader        $annotationReader
-     * @param SchemaGeneratorResolver $schemaGeneratorResolver
-     * @param ValidatorInterface      $validator
-     */
-    public function __construct(Reader $annotationReader, SchemaGeneratorResolver $schemaGeneratorResolver, ValidatorInterface $validator)
-    {
+    public function __construct(
+        Reader $annotationReader,
+        SchemaGeneratorResolver $schemaGeneratorResolver,
+        ValidatorInterface $validator
+    ) {
         $this->annotationReader = $annotationReader;
         $this->schemaGeneratorResolver = $schemaGeneratorResolver;
         $this->validator = $validator;
     }
 
     /**
-     * @param FilterControllerEvent $event
-     *
      * @throws \ReflectionException
      */
     public function onKernelController(FilterControllerEvent $event): void
@@ -62,8 +58,12 @@ class SchemaFileValidationListener
 
         /** @var SchemaFile[] $schemaAnnotations */
         $schemaAnnotations = array_merge(
-            $this->getAnnotations($this->annotationReader->getClassAnnotations($object)),
-            $this->getAnnotations($this->annotationReader->getMethodAnnotations($method))
+            $this->getAnnotations(
+                $this->annotationReader->getClassAnnotations($object)
+            ),
+            $this->getAnnotations(
+                $this->annotationReader->getMethodAnnotations($method)
+            )
         );
 
         if (empty($schemaAnnotations)) {
@@ -74,7 +74,9 @@ class SchemaFileValidationListener
             if ($annotation->isRequestCheck()) {
                 $this->validator->check(
                     json_decode($request->getContent(), true),
-                    $this->schemaGeneratorResolver->resolve($annotation)->generate($annotation)
+                    $this->schemaGeneratorResolver
+                        ->resolve($annotation)
+                        ->generate($annotation)
                 );
                 break;
             }
@@ -82,11 +84,9 @@ class SchemaFileValidationListener
         $request->attributes->set(self::JSON_SCHEMA_ATTR, $schemaAnnotations);
     }
 
-    /**
-     * @param GetResponseForControllerResultEvent $event
-     */
-    public function onKernelView(GetResponseForControllerResultEvent $event): void
-    {
+    public function onKernelView(
+        GetResponseForControllerResultEvent $event
+    ): void {
         if (false === \is_array($event->getControllerResult())) {
             return;
         }
@@ -102,7 +102,9 @@ class SchemaFileValidationListener
             if ($annotation->isResponseCheck()) {
                 $this->validator->check(
                     $event->getControllerResult(),
-                    $this->schemaGeneratorResolver->resolve($annotation)->generate($annotation)
+                    $this->schemaGeneratorResolver
+                        ->resolve($annotation)
+                        ->generate($annotation)
                 );
                 break;
             }

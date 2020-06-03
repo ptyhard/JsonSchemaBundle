@@ -32,9 +32,6 @@ class SchemaFile implements JsonSchemaInterface
         }
     }
 
-    /**
-     * @return string
-     */
     public function getFile(): string
     {
         return $this->file;

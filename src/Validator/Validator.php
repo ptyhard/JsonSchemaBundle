@@ -22,9 +22,16 @@ class Validator implements ValidatorInterface
     public function check(array $value, array $schema): void
     {
         $object = (object) $value;
-        $this->schemaValidator->validate($object, $schema, Constraint::CHECK_MODE_COERCE_TYPES | Constraint::CHECK_MODE_TYPE_CAST);
+        $this->schemaValidator->validate(
+            $object,
+            $schema,
+            Constraint::CHECK_MODE_COERCE_TYPES |
+                Constraint::CHECK_MODE_TYPE_CAST
+        );
         if (false === $this->schemaValidator->isValid()) {
-            $e = ValidationFailedException::newException($this->schemaValidator->getErrors());
+            $e = ValidationFailedException::newException(
+                $this->schemaValidator->getErrors()
+            );
             $this->schemaValidator->reset();
             throw $e;
         }

@@ -65,15 +65,12 @@ abstract class Property implements PropertyInterface
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    public function getType(): String
+    public function getType(): string
     {
         return $this->type;
     }

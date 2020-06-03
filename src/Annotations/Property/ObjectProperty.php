@@ -52,9 +52,6 @@ class ObjectProperty extends Property
      */
     private $propertyNames;
 
-    /**
-     * @param array $params
-     */
     public function __construct(array $params)
     {
         $params['type'] = 'object';

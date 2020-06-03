@@ -14,9 +14,6 @@ class DefaultPropertyGenerator implements PropertyGeneratorInterface
      */
     private $supported;
 
-    /**
-     * @param array $supported
-     */
     public function __construct(array $supported)
     {
         $this->supported = $supported;

@@ -4,8 +4,14 @@ return PhpCsFixer\Config::create()
     ->setRules([
         '@Symfony' => true,
         '@Symfony:risky' => true,
-        '@PHP71Migration:risky' => true,
+        '@DoctrineAnnotation' => true,
+        '@PHPUnit75Migration:risky' => true,
+        'declare_strict_types' => true,
         'array_syntax' => ['syntax' => 'short'],
+        'concat_space' => [
+            'spacing' => 'one',
+        ],
+        'single_line_throw' => false,
     ])
     ->setLineEnding("\n")
     ->setFinder(

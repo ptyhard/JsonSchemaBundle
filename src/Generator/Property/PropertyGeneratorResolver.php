@@ -9,27 +9,33 @@ use Ptyhard\JsonSchemaBundle\Exception\PropertyGeneratorException;
 class PropertyGeneratorResolver
 {
     /**
-     * @var GeneratorInterface[]
+     * @var PropertyGeneratorInterface[]
      */
-    private $generators;
+    private $generators = [];
 
     /**
-     * @param GeneratorInterface[] $generators
+     * @param PropertyGeneratorInterface[] $generators
      */
     public function __construct(array $generators)
     {
-        $this->generators = $generators;
+        foreach ($generators as $generator) {
+            $this->addGenerator($generator);
+        }
+    }
+
+    public function addGenerator(PropertyGeneratorInterface $generator): void
+    {
+        $this->generators[] = $generator;
     }
 
     public function resolve(string $type): PropertyGeneratorInterface
     {
-        /** @var GeneratorInterface $generator */
         foreach ($this->generators as $generator) {
             if ($generator->supported($type)) {
                 return $generator;
             }
         }
 
-        throw new PropertyGeneratorException('PropertyGenerator no supported type: '.$type);
+        throw new PropertyGeneratorException('PropertyGenerator no supported type: ' . $type);
     }
 }

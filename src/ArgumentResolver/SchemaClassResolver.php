@@ -22,10 +22,6 @@ class SchemaClassResolver implements ArgumentValueResolverInterface
      */
     private $checker;
 
-    /**
-     * @param FactoryInterface $factory
-     * @param CheckerInterface $checker
-     */
     public function __construct(FactoryInterface $factory, CheckerInterface $checker)
     {
         $this->factory = $factory;

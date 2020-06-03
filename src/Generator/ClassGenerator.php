@@ -29,25 +29,16 @@ class ClassGenerator implements ClassGeneratorInterface
      */
     private $propertyGeneratorResolver;
 
-    /**
-     * @param Reader $annotationReader
-     */
     public function __construct(Reader $annotationReader)
     {
         $this->annotationReader = $annotationReader;
     }
 
-    /**
-     * @param SchemaGeneratorResolver $schemaGeneratorResolver
-     */
     public function setSchemaGeneratorResolver(SchemaGeneratorResolver $schemaGeneratorResolver): void
     {
         $this->schemaGeneratorResolver = $schemaGeneratorResolver;
     }
 
-    /**
-     * @param PropertyGeneratorResolver $propertyGeneratorResolver
-     */
     public function setPropertyGeneratorResolver(PropertyGeneratorResolver $propertyGeneratorResolver): void
     {
         $this->propertyGeneratorResolver = $propertyGeneratorResolver;
@@ -61,7 +52,7 @@ class ClassGenerator implements ClassGeneratorInterface
         try {
             $object = new \ReflectionClass($class);
         } catch (\Exception $e) {
-            throw new GeneratorException('reflection class error: '.$class, 0, $e);
+            throw new GeneratorException('reflection class error: ' . $class, 0, $e);
         }
 
         /** @var JsonSchemaInterface $schema */

@@ -6,6 +6,7 @@ namespace Ptyhard\JsonSchemaBundle\Tests\Functional;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
+use Psr\SimpleCache\CacheInterface;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\ArrayProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\NumberProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty;
@@ -14,6 +15,9 @@ use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\CollectionPropertyGen
 use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\DefaultPropertyGenerator;
 use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\ObjectPropertyGenerator;
 use Ptyhard\JsonSchemaBundle\Generator\Property\PropertyGeneratorResolver;
+use Ptyhard\JsonSchemaBundle\Generator\Schema\Generators\FileGenerator;
+use Ptyhard\JsonSchemaBundle\Generator\Schema\Generators\ObjectSchemaGenerator;
+use Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorResolver;
 use Ptyhard\JsonSchemaBundle\Tests\Schema\User;
 
 class GeneratorTest extends TestCase
@@ -31,15 +35,26 @@ class GeneratorTest extends TestCase
         $this->generator = new ClassGenerator(new AnnotationReader());
         $defaultGenerator = new DefaultPropertyGenerator([StringProperty::class, NumberProperty::class, ArrayProperty::class]);
         $collectionGenerator = new CollectionPropertyGenerator($this->generator);
-        $objectGenerator = new ObjectPropertyGenerator($this->generator);
+        $objectPropertyGenerator = new ObjectPropertyGenerator($this->generator);
 
-        $resolver = new PropertyGeneratorResolver([
+        $cache = $this->prophesize(CacheInterface::class);
+
+        $fileGenerator = new FileGenerator($cache->reveal(), './tests');
+        $objectSchemaGenerator = new ObjectSchemaGenerator();
+
+        $propertyGeneratorResolver = new PropertyGeneratorResolver([
             $defaultGenerator,
             $collectionGenerator,
-            $objectGenerator,
+            $objectPropertyGenerator,
         ]);
 
-        $this->generator->setPropertyGeneratorResolver($resolver);
+        $schemaGeneratorResolver = new SchemaGeneratorResolver([
+            $objectSchemaGenerator,
+            $fileGenerator,
+        ]);
+
+        $this->generator->setPropertyGeneratorResolver($propertyGeneratorResolver);
+        $this->generator->setSchemaGeneratorResolver($schemaGeneratorResolver);
     }
 
     public function testGenerateStringAnnotation(): void

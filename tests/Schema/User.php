@@ -8,10 +8,10 @@ use Ptyhard\JsonSchemaBundle\Annotations\Property\CollectionProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\NumberProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\ObjectProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty;
-use Ptyhard\JsonSchemaBundle\Annotations\Schema;
+use Ptyhard\JsonSchemaBundle\Annotations\SchemaClass;
 
 /**
- * @Schema(required={"id"})
+ * @SchemaClass(required={"id"})
  */
 class User
 {
@@ -30,7 +30,7 @@ class User
     private $name;
 
     /**
-     * @ObjectProperty()
+     * @ObjectProperty
      *
      * @var Profile
      */
@@ -44,9 +44,6 @@ class User
     private $comments = [];
 
     /**
-     * @param int       $id
-     * @param string    $name
-     * @param Profile   $profile
      * @param Comment[] $comments
      */
     public function __construct(int $id, string $name, Profile $profile, array $comments)
