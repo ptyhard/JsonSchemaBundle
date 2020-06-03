@@ -3,14 +3,6 @@ name: CI
 on: ['push']
 jobs:
   php-test:
-    env:
-      APP_ENV: 'test'
-      APP_DEBUG: true
-    services:
-      mysql:
-        image: mysql
-        ports:
-          - 3306
     runs-on: ubuntu-latest
     steps:
       - name: Run composer install
