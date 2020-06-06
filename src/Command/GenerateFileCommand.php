@@ -58,7 +58,10 @@ class GenerateFileCommand extends Command
             foreach ($refClass->getMethods() as $method) {
                 foreach ($method->getParameters() as $parameter) {
                     try {
-                        $this->writer->write($parameter->getClass()->getName());
+                        $class = $parameter->getClass();
+                        if (null !== $class) {
+                            $this->writer->write($parameter->getClass()->getName());
+                        }
                     } catch (GeneratorException $ge) {
                         continue;
                     }
