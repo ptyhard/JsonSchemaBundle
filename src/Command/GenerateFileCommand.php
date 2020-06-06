@@ -39,13 +39,21 @@ class GenerateFileCommand extends Command
         $this->writer = $writer;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
-    {
+    protected function execute(
+        InputInterface $input,
+        OutputInterface $output
+    ): int {
         $io = new SymfonyStyle($input, $output);
         $io->title('Generate class to json schema');
 
         $containerBuilder = $this->getContainerBuilder();
-        foreach (array_keys($containerBuilder->findTaggedServiceIds('controller.service_arguments')) as $controller) {
+        foreach (
+            array_keys(
+                $containerBuilder->findTaggedServiceIds(
+                    'controller.service_arguments'
+                )
+            ) as $controller
+        ) {
             $refClass = new \ReflectionClass($controller);
             foreach ($refClass->getMethods() as $method) {
                 foreach ($method->getParameters() as $parameter) {
@@ -69,16 +77,31 @@ class GenerateFileCommand extends Command
 
         $kernel = $this->getApplication()->getKernel();
 
-        if (!$kernel->isDebug() || !(new ConfigCache($kernel->getContainer()->getParameter('debug.container.dump'), true))->isFresh()) {
-            $buildContainer = \Closure::bind(function () {
-                return $this->buildContainer();
-            }, $kernel, \get_class($kernel));
+        if (
+            !$kernel->isDebug() ||
+            !(new ConfigCache(
+                $kernel->getContainer()->getParameter('debug.container.dump'),
+                true
+            ))->isFresh()
+        ) {
+            $buildContainer = \Closure::bind(
+                function () {
+                    return $this->buildContainer();
+                },
+                $kernel,
+                \get_class($kernel)
+            );
             $container = $buildContainer();
             $container->getCompilerPassConfig()->setRemovingPasses([]);
             $container->getCompilerPassConfig()->setAfterRemovingPasses([]);
             $container->compile();
         } else {
-            (new XmlFileLoader($container = new ContainerBuilder(), new FileLocator()))->load($kernel->getContainer()->getParameter('debug.container.dump'));
+            (new XmlFileLoader(
+                ($container = new ContainerBuilder()),
+                new FileLocator()
+            ))->load(
+                $kernel->getContainer()->getParameter('debug.container.dump')
+            );
             $locatorPass = new ServiceLocatorTagPass();
             $locatorPass->process($container);
         }
