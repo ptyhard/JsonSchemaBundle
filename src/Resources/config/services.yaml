@@ -75,6 +75,12 @@ services:
               arguments:
                   - '@Ptyhard\JsonSchemaBundle\Generator\Property\PropertyGeneratorResolver'
 
+    # Writer
+    Ptyhard\JsonSchemaBundle\FileWriter\Writer:
+        autowire: true
+        arguments:
+            $baseDir: '%json_schema_bundle.json_write_directory%'
+
 
     Ptyhard\JsonSchemaBundle\Validator\Validator:
         autowire: true
