@@ -99,8 +99,15 @@ services:
         tags:
             - { name: controller.argument_value_resolver, priority: 50 }
 
+    # command
+    Ptyhard\JsonSchemaBundle\Command\GenerateFileCommand:
+        autowire: true
+        tags:
+          - { name: 'console.command', command: 'json-schema:generate:file' }
+
     Ptyhard\JsonSchemaBundle\Validator\ValidatorInterface: '@Ptyhard\JsonSchemaBundle\Validator\Validator'
     Ptyhard\JsonSchemaBundle\SchemaObject\FactoryInterface: '@Ptyhard\JsonSchemaBundle\SchemaObject\Factory'
     Ptyhard\JsonSchemaBundle\SchemaObject\ExporterInterface: '@Ptyhard\JsonSchemaBundle\SchemaObject\Exporter'
     Ptyhard\JsonSchemaBundle\SchemaObject\CheckerInterface: '@Ptyhard\JsonSchemaBundle\SchemaObject\Checker'
     Ptyhard\JsonSchemaBundle\Generator\ClassGeneratorInterface: '@Ptyhard\JsonSchemaBundle\Generator\ClassGenerator'
+    Ptyhard\JsonSchemaBundle\FileWriter\WriterInterface: '@Ptyhard\JsonSchemaBundle\FileWriter\Writer'
