@@ -28,7 +28,7 @@ class SchemaClass implements JsonSchemaInterface
         }
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             '$schema' => 'http://json-schema.org/draft-07/schema#',
