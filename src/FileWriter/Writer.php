@@ -27,8 +27,11 @@ class Writer implements WriterInterface
     /**
      * Writer constructor.
      */
-    public function __construct(Filesystem $filesystem, ClassGeneratorInterface $classGenerator, string $baseDir)
-    {
+    public function __construct(
+        Filesystem $filesystem,
+        ClassGeneratorInterface $classGenerator,
+        string $baseDir
+    ) {
         $this->filesystem = $filesystem;
         $this->classGenerator = $classGenerator;
         $this->baseDir = $baseDir;
@@ -39,6 +42,7 @@ class Writer implements WriterInterface
         $schema = $this->classGenerator->generate($class);
         $filename = strtolower(substr(strrchr($class, '\\'), 1)) . '.json';
         $file = $this->baseDir . \DIRECTORY_SEPARATOR . $filename;
-        $this->filesystem->dumpFile($file, json_encode($schema));
+        $json = json_encode($schema, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        $this->filesystem->dumpFile($file, $json);
     }
 }
