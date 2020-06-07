@@ -12,7 +12,7 @@ use Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorInterface;
 class FileGenerator implements SchemaGeneratorInterface
 {
     /**
-     * @var CacheInterface
+     * @var ?CacheInterface
      */
     private $cache;
 
@@ -21,10 +21,14 @@ class FileGenerator implements SchemaGeneratorInterface
      */
     private $baseFilePath;
 
-    public function __construct(CacheInterface $cache, string $baseFilePath)
+    public function __construct(string $baseFilePath)
+    {
+        $this->baseFilePath = $baseFilePath;
+    }
+
+    public function setCache(CacheInterface $cache): void
     {
         $this->cache = $cache;
-        $this->baseFilePath = $baseFilePath;
     }
 
     public function generate(JsonSchemaInterface $schema): array
@@ -33,14 +37,15 @@ class FileGenerator implements SchemaGeneratorInterface
         $path = $this->baseFilePath . '/' . $schema->getFile();
         $key = 'json_schema_' . md5($path);
 
-        if ($this->cache->has($key)) {
-            return $this->cache->get($key);
+        $cached = $this->getCacheData($key);
+        if (null !== $cached) {
+            return $cached;
         }
 
         $json = file_get_contents($path);
         $data = json_decode($json, true);
 
-        $this->cache->set($key, $data);
+        $this->setCacheData($key, $data);
 
         return $data;
     }
@@ -48,5 +53,21 @@ class FileGenerator implements SchemaGeneratorInterface
     public function supported(JsonSchemaInterface $schema): bool
     {
         return $schema instanceof SchemaFile;
+    }
+
+    private function getCacheData(string $key): ?array
+    {
+        if (null === $this->cache || !$this->cache->has($key)) {
+            return null;
+        }
+
+        return $this->cache->get($key);
+    }
+
+    private function setCacheData(string $key, array $data): void
+    {
+        if (null !== $this->cache) {
+            $this->cache->set($key, $data);
+        }
     }
 }

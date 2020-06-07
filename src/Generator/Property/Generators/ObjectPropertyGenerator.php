@@ -16,9 +16,6 @@ class ObjectPropertyGenerator implements PropertyGeneratorInterface
      */
     private $generator;
 
-    /**
-     * @param ClassGeneratorInterface $schemaGenerator
-     */
     public function __construct(ClassGeneratorInterface $generator)
     {
         $this->generator = $generator;
