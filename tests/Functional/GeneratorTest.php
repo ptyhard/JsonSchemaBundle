@@ -6,7 +6,6 @@ namespace Ptyhard\JsonSchemaBundle\Tests\Functional;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
-use Psr\SimpleCache\CacheInterface;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\ArrayProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\NumberProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty;
@@ -37,9 +36,7 @@ class GeneratorTest extends TestCase
         $collectionGenerator = new CollectionPropertyGenerator($this->generator);
         $objectPropertyGenerator = new ObjectPropertyGenerator($this->generator);
 
-        $cache = $this->prophesize(CacheInterface::class);
-
-        $fileGenerator = new FileGenerator($cache->reveal(), './tests');
+        $fileGenerator = new FileGenerator('./tests');
         $objectSchemaGenerator = new ObjectSchemaGenerator();
 
         $propertyGeneratorResolver = new PropertyGeneratorResolver([

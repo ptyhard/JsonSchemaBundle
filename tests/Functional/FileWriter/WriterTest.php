@@ -6,7 +6,6 @@ namespace Ptyhard\JsonSchemaBundle\Tests\Functional\FileWriter;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
-use Psr\SimpleCache\CacheInterface;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\ArrayProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\NumberProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty;
@@ -44,9 +43,7 @@ class WriterTest extends TestCase
         $collectionGenerator = new CollectionPropertyGenerator($this->classGenerator);
         $objectPropertyGenerator = new ObjectPropertyGenerator($this->classGenerator);
 
-        $cache = $this->prophesize(CacheInterface::class);
-
-        $fileGenerator = new FileGenerator($cache->reveal(), './tests');
+        $fileGenerator = new FileGenerator('./tests');
         $objectSchemaGenerator = new ObjectSchemaGenerator();
 
         $propertyGeneratorResolver = new PropertyGeneratorResolver([
