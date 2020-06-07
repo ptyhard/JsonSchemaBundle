@@ -30,6 +30,10 @@ return [
 # config/packages/ptyhard_json_schema.yml
 
 ptyhard_json_schema: ~
+    use_jms_serializer: true # default true
+    json_file_directory: ~ # default null
+    json_write_directory: # default null
+    
 ```
 
 ## Usage
@@ -51,14 +55,14 @@ use Ptyhard\JsonSchemaBundle\Annotations\Property;
 class User 
 {
     /**
-     * @NumberProperty("id", type="integer")
+     * @Property\NumberProperty("id")
      *
      * @var int
      */
     private $id;
 
     /**
-     * @StringProperty("name", type="string")
+     * @Property\StringProperty("name")
      *
      * @var string
      */
@@ -110,5 +114,9 @@ class TopController
 }
 ```
 
+## Generate object to json schema file.
+If you need json schema file, can use generate command.
 
-
+```bash
+$ bin/console json-schema:generate:file
+```
