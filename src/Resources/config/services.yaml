@@ -52,7 +52,6 @@ services:
     Ptyhard\JsonSchemaBundle\Generator\Schema\Generators\FileGenerator:
         autowire: true
         arguments:
-            $cache: '@ptyhard.json_schema_bundle.cache'
             $baseFilePath: '%json_schema_bundle.json_file_directory%'
 
     Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorResolver:
@@ -60,9 +59,6 @@ services:
             $generators:
               - '@Ptyhard\JsonSchemaBundle\Generator\Schema\Generators\ObjectSchemaGenerator'
               - '@Ptyhard\JsonSchemaBundle\Generator\Schema\Generators\FileGenerator'
-
-    ptyhard.json_schema_bundle.cache:
-        class: Symfony\Component\Cache\Simple\FilesystemCache
 
     # Generator
     Ptyhard\JsonSchemaBundle\Generator\ClassGenerator:
