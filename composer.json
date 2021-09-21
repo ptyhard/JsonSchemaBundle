@@ -41,12 +41,10 @@
     },
     "scripts": {
         "cs": [
-            "php-cs-fixer fix -v --dry-run",
-            "phpcs src/"
+            "php-cs-fixer fix -v --dry-run"
         ],
         "cs-fix": [
-            "php-cs-fixer fix -v",
-            "phpcbf src/"
+            "php-cs-fixer fix -v"
         ],
         "test": "phpunit",
         "tests": ["@cs", "@test"]

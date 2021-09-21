@@ -52,7 +52,7 @@ class ClassGenerator implements ClassGeneratorInterface
         try {
             $object = new \ReflectionClass($class);
         } catch (\Exception $e) {
-            throw new GeneratorException('reflection class error: ' . $class, 0, $e);
+            throw new GeneratorException('reflection class error: '.$class, 0, $e);
         }
 
         /** @var JsonSchemaInterface $schema */

@@ -40,8 +40,8 @@ class Writer implements WriterInterface
     public function write(string $class): void
     {
         $schema = $this->classGenerator->generate($class);
-        $filename = strtolower(substr(strrchr($class, '\\'), 1)) . '.json';
-        $file = $this->baseDir . \DIRECTORY_SEPARATOR . $filename;
+        $filename = strtolower(substr(strrchr($class, '\\'), 1)).'.json';
+        $file = $this->baseDir.\DIRECTORY_SEPARATOR.$filename;
         $json = json_encode($schema, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES);
         $this->filesystem->dumpFile($file, $json);
     }

@@ -36,6 +36,6 @@ class PropertyGeneratorResolver
             }
         }
 
-        throw new PropertyGeneratorException('PropertyGenerator no supported type: ' . $type);
+        throw new PropertyGeneratorException('PropertyGenerator no supported type: '.$type);
     }
 }
