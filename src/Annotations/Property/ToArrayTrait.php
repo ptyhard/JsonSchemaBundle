@@ -8,8 +8,6 @@ trait ToArrayTrait
 {
     public function toArray(): array
     {
-        return array_merge(parent::toArray(), array_filter(get_object_vars($this), function ($value) {
-            return null !== $value;
-        }));
+        return array_merge(parent::toArray(), array_filter(get_object_vars($this), fn ($value) => null !== $value));
     }
 }

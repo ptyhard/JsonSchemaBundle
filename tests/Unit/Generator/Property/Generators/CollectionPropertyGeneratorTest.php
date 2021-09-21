@@ -17,7 +17,7 @@ class CollectionPropertyGeneratorTest extends TestCase
      */
     private $schemaGenerator;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->schemaGenerator = $this->prophesize(ClassGeneratorInterface::class);
     }

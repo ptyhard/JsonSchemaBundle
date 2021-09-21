@@ -42,7 +42,7 @@ class Writer implements WriterInterface
         $schema = $this->classGenerator->generate($class);
         $filename = strtolower(substr(strrchr($class, '\\'), 1)) . '.json';
         $file = $this->baseDir . \DIRECTORY_SEPARATOR . $filename;
-        $json = json_encode($schema, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        $json = json_encode($schema, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES);
         $this->filesystem->dumpFile($file, $json);
     }
 }

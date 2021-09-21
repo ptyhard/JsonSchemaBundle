@@ -16,7 +16,7 @@ class ObjectGeneratorTest extends TestCase
      */
     private $classGenerator;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->classGenerator = $this->prophesize(ClassGeneratorInterface::class);
     }

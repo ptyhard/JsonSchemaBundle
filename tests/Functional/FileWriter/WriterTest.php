@@ -24,15 +24,8 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class WriterTest extends TestCase
 {
-    /**
-     * @var Filesystem
-     */
-    private $filesystem;
-
-    /**
-     * @var ClassGeneratorInterface
-     */
-    private $classGenerator;
+    private Filesystem $filesystem;
+    private ClassGeneratorInterface $classGenerator;
 
     protected function setUp(): void
     {
@@ -61,16 +54,16 @@ class WriterTest extends TestCase
         $this->classGenerator->setSchemaGeneratorResolver($schemaGeneratorResolver);
     }
 
-    public function tearDown(): void
+    final protected function tearDown(): void
     {
-        $this->filesystem->remove(__DIR__ . '/user.json');
+        $this->filesystem->remove(__DIR__.'/user.json');
     }
 
-    public function testWrite(): void
+    final public function testWrite(): void
     {
         $writer = new Writer($this->filesystem, $this->classGenerator, __DIR__);
         $writer->write(User::class);
 
-        self::assertTrue($this->filesystem->exists(__DIR__ . '/user.json'));
+        self::assertTrue($this->filesystem->exists(__DIR__.'/user.json'));
     }
 }

@@ -113,8 +113,6 @@ class SchemaFileValidationListener
 
     private function getAnnotations(array $annotations): array
     {
-        return array_filter($annotations, function ($annotation) {
-            return $annotation instanceof SchemaFile;
-        });
+        return array_filter($annotations, fn ($annotation) => $annotation instanceof SchemaFile);
     }
 }

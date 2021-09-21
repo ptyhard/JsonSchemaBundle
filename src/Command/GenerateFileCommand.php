@@ -88,9 +88,7 @@ class GenerateFileCommand extends Command
             ))->isFresh()
         ) {
             $buildContainer = \Closure::bind(
-                function () {
-                    return $this->buildContainer();
-                },
+                fn () => $this->buildContainer(),
                 $kernel,
                 \get_class($kernel)
             );

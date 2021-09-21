@@ -29,7 +29,7 @@ class GeneratorTest extends TestCase
     /**
      * @throws \Doctrine\Common\Annotations\AnnotationException
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->generator = new ClassGenerator(new AnnotationReader());
         $defaultGenerator = new DefaultPropertyGenerator([StringProperty::class, NumberProperty::class, ArrayProperty::class]);

@@ -48,9 +48,7 @@ class SchemaClassValidationListener
     public function onKernelControllerArguments(
         FilterControllerArgumentsEvent $event
     ): void {
-        $arguments = array_filter($event->getArguments(), function ($argument) {
-            return $this->isSchemaObject($argument);
-        });
+        $arguments = array_filter($event->getArguments(), fn ($argument) => $this->isSchemaObject($argument));
 
         if (\count($arguments) < 1) {
             return;

@@ -21,9 +21,7 @@ class DefaultPropertyGenerator implements PropertyGeneratorInterface
 
     public function generate(PropertyInterface $property): array
     {
-        return array_filter($property->toArray(), function ($key) {
-            return 'options' !== $key;
-        }, ARRAY_FILTER_USE_KEY);
+        return array_filter($property->toArray(), fn ($key) => 'options' !== $key, \ARRAY_FILTER_USE_KEY);
     }
 
     public function supported(string $name): bool

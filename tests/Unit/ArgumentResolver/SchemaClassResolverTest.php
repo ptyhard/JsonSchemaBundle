@@ -17,7 +17,7 @@ class SchemaClassResolverTest extends TestCase
 
     private $checker;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->factory = $this->prophesize(FactoryInterface::class);
         $this->checker = $this->prophesize(CheckerInterface::class);
