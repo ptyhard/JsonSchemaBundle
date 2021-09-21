@@ -6,6 +6,7 @@ namespace Ptyhard\JsonSchemaBundle\Tests\Functional\FileWriter;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\ArrayProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\NumberProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty;
@@ -24,6 +25,8 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class WriterTest extends TestCase
 {
+    use ProphecyTrait;
+
     private Filesystem $filesystem;
     private ClassGeneratorInterface $classGenerator;
 

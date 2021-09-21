@@ -9,7 +9,7 @@ use Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty;
 
 class PropertyTest extends TestCase
 {
-    public function testToArray(): void
+    final public function testToArray(): void
     {
         $params = [
             'maxLength' => 10,
@@ -20,6 +20,6 @@ class PropertyTest extends TestCase
         $property = new StringProperty($params);
         $actual = $property->toArray();
         $expected = array_merge(['type' => 'string'], $params);
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 }

@@ -9,7 +9,7 @@ use Ptyhard\JsonSchemaBundle\Annotations\Property\ArrayProperty;
 
 class ArrayPropertyTest extends TestCase
 {
-    public function testToArray(): void
+    final public function testToArray(): void
     {
         $data = [
             'items' => [],
@@ -23,6 +23,6 @@ class ArrayPropertyTest extends TestCase
         $property = new ArrayProperty($data);
         $actual = $property->toArray();
         $expected = array_merge(['type' => 'array'], $data);
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 }

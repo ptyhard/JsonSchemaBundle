@@ -6,6 +6,7 @@ namespace Ptyhard\JsonSchemaBundle\Tests\Functional;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\ArrayProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\NumberProperty;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty;
@@ -21,14 +22,10 @@ use Ptyhard\JsonSchemaBundle\Tests\Schema\User;
 
 class GeneratorTest extends TestCase
 {
-    /**
-     * @var ClassGenerator
-     */
-    private $generator;
+    use ProphecyTrait;
 
-    /**
-     * @throws \Doctrine\Common\Annotations\AnnotationException
-     */
+    private ClassGenerator $generator;
+
     protected function setUp(): void
     {
         $this->generator = new ClassGenerator(new AnnotationReader());
@@ -54,7 +51,7 @@ class GeneratorTest extends TestCase
         $this->generator->setSchemaGeneratorResolver($schemaGeneratorResolver);
     }
 
-    public function testGenerateStringAnnotation(): void
+    final public function testGenerateStringAnnotation(): void
     {
         $expect = [
             '$schema' => 'http://json-schema.org/draft-07/schema#',

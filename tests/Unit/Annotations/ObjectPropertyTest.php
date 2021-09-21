@@ -9,7 +9,7 @@ use Ptyhard\JsonSchemaBundle\Annotations\Property\ObjectProperty;
 
 class ObjectPropertyTest extends TestCase
 {
-    public function testToArray(): void
+    final public function testToArray(): void
     {
         $data = [
             'maxProperties' => 100,
@@ -25,6 +25,6 @@ class ObjectPropertyTest extends TestCase
         $property = new ObjectProperty($data);
         $actual = $property->toArray();
         $expected = array_merge(['type' => 'object'], $data);
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 }

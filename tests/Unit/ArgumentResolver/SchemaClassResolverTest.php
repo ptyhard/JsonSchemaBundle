@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ptyhard\JsonSchemaBundle\Tests\Unit\ArgumentResolver;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Ptyhard\JsonSchemaBundle\ArgumentResolver\SchemaClassResolver;
 use Ptyhard\JsonSchemaBundle\SchemaObject\CheckerInterface;
 use Ptyhard\JsonSchemaBundle\SchemaObject\FactoryInterface;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
 class SchemaClassResolverTest extends TestCase
 {
+    use ProphecyTrait;
+
     private $factory;
 
     private $checker;
@@ -23,7 +26,10 @@ class SchemaClassResolverTest extends TestCase
         $this->checker = $this->prophesize(CheckerInterface::class);
     }
 
-    public function testSupports(): void
+    /**
+     * @throws \ReflectionException
+     */
+    final public function testSupports(): void
     {
         $type = 'schema';
 
@@ -43,7 +49,7 @@ class SchemaClassResolverTest extends TestCase
             ->shouldHaveBeenCalled();
     }
 
-    public function testSuppprtedThrowReflectionException(): void
+    final public function testSupportedThrowReflectionException(): void
     {
         $type = 'schema';
 

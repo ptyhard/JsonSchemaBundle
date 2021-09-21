@@ -9,7 +9,7 @@ use Ptyhard\JsonSchemaBundle\Annotations\Property\CollectionProperty;
 
 class CollectionPropertyTest extends TestCase
 {
-    public function testToArray(): void
+    final public function testToArray(): void
     {
         $data = [
             'class' => 'hoge',
@@ -20,6 +20,6 @@ class CollectionPropertyTest extends TestCase
         $property = new CollectionProperty($data);
         $actual = $property->toArray();
         $expected = array_merge(['type' => 'array'], $data);
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 }

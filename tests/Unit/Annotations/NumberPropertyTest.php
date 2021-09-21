@@ -9,7 +9,7 @@ use Ptyhard\JsonSchemaBundle\Annotations\Property\NumberProperty;
 
 class NumberPropertyTest extends TestCase
 {
-    public function testToArray(): void
+    final public function testToArray(): void
     {
         $data = [
             'multipleOf' => 1,
@@ -22,6 +22,6 @@ class NumberPropertyTest extends TestCase
         $property = new NumberProperty($data);
         $actual = $property->toArray();
         $expected = array_merge(['type' => 'number'], $data);
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 }

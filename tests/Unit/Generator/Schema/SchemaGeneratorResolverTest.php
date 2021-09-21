@@ -12,7 +12,7 @@ use Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorResolver;
 
 class SchemaGeneratorResolverTest extends TestCase
 {
-    public function testResolve(): void
+    final public function testResolve(): void
     {
         $objectSchemaGenerator = new ObjectSchemaGenerator();
         $generator = new SchemaGeneratorResolver([$objectSchemaGenerator]);

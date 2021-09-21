@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Ptyhard\JsonSchemaBundle\Tests\Unit\Generator\Property\Generators;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Ptyhard\JsonSchemaBundle\Annotations\Property\PropertyInterface;
 use Ptyhard\JsonSchemaBundle\Generator\Property\Generators\DefaultPropertyGenerator;
 
 class DefaultPropertyGeneratorTest extends TestCase
 {
-    public function testGenerate(): void
+    use ProphecyTrait;
+
+    final public function testGenerate(): void
     {
         $data = [
             'options' => ['a' => 'b'],
@@ -23,6 +26,6 @@ class DefaultPropertyGeneratorTest extends TestCase
 
         $defaultGenerator = new DefaultPropertyGenerator(['a']);
         $actual = $defaultGenerator->generate($property->reveal());
-        $this->assertSame(['name' => 'string'], $actual);
+        self::assertSame(['name' => 'string'], $actual);
     }
 }
