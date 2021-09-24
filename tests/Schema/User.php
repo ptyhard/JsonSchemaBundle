@@ -17,31 +17,25 @@ class User
 {
     /**
      * @NumberProperty(minimum=1)
-     *
-     * @var int
      */
-    private $id;
+    private int $id;
 
     /**
      * @StringProperty(minLength=1, maxLength=20, pattern="^[^a-z1-9]+$")
-     *
-     * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @ObjectProperty
-     *
-     * @var Profile
      */
-    private $profile;
+    private Profile $profile;
 
     /**
      * @CollectionProperty(class="Ptyhard\JsonSchemaBundle\Tests\Schema\Comment")
      *
      * @var Comment[]
      */
-    private $comments = [];
+    private array $comments;
 
     /**
      * @param Comment[] $comments

@@ -15,22 +15,16 @@ class Comment
 {
     /**
      * @NumberProperty(minimum=1)
-     *
-     * @var int
      */
-    private $id;
+    private int $id;
 
     /**
      * @StringProperty(minLength=1, maxLength=120)
-     *
-     * @var string
      */
-    private $title;
+    private string $title;
 
     /**
      * @StringProperty(minLength=1, maxLength=255)
-     *
-     * @var string
      */
-    private $comment;
+    private string $comment;
 }

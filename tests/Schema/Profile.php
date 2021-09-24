@@ -15,22 +15,16 @@ class Profile
 {
     /**
      * @NumberProperty
-     *
-     * @var number
      */
-    private $barthDay;
+    private int $barthDay;
 
     /**
      * @StringProperty
-     *
-     * @var string
      */
-    private $country;
+    private string $country;
 
     /**
      * @StringProperty
-     *
-     * @var string
      */
-    private $address;
+    private string $address;
 }
