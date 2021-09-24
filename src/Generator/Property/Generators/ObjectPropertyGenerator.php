@@ -11,10 +11,7 @@ use Ptyhard\JsonSchemaBundle\Generator\Property\PropertyGeneratorInterface;
 
 class ObjectPropertyGenerator implements PropertyGeneratorInterface
 {
-    /**
-     * @var ClassGeneratorInterface
-     */
-    private $generator;
+    private ClassGeneratorInterface $generator;
 
     public function __construct(ClassGeneratorInterface $generator)
     {

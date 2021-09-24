@@ -11,7 +11,7 @@ class PropertyGeneratorResolver
     /**
      * @var PropertyGeneratorInterface[]
      */
-    private $generators = [];
+    private array $generators = [];
 
     /**
      * @param PropertyGeneratorInterface[] $generators

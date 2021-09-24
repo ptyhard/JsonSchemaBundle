@@ -6,14 +6,13 @@ namespace Ptyhard\JsonSchemaBundle\EventListener;
 
 use Ptyhard\JsonSchemaBundle\Exception\ValidationFailedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 
 class ExceptionListener
 {
-    public function onKernelException(GetResponseForExceptionEvent $event): void
+    public function onKernelException(ExceptionEvent $event): void
     {
-        /** @var ValidationFailedException $exception */
-        $exception = $event->getException();
+        $exception = $event->getThrowable();
         if (false === $exception instanceof ValidationFailedException) {
             return;
         }

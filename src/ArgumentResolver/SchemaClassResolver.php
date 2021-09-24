@@ -12,15 +12,8 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
 class SchemaClassResolver implements ArgumentValueResolverInterface
 {
-    /**
-     * @var FactoryInterface
-     */
-    private $factory;
-
-    /**
-     * @var CheckerInterface
-     */
-    private $checker;
+    private FactoryInterface $factory;
+    private CheckerInterface $checker;
 
     public function __construct(FactoryInterface $factory, CheckerInterface $checker)
     {

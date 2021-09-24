@@ -8,30 +8,15 @@ use Ptyhard\JsonSchemaBundle\Generator\ClassGeneratorInterface;
 use Ptyhard\JsonSchemaBundle\SchemaObject\CheckerInterface;
 use Ptyhard\JsonSchemaBundle\SchemaObject\ExporterInterface;
 use Ptyhard\JsonSchemaBundle\Validator\ValidatorInterface;
-use Symfony\Component\HttpKernel\Event\FilterControllerArgumentsEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 
 class SchemaClassValidationListener
 {
-    /**
-     * @var ClassGeneratorInterface
-     */
-    private $classGenerator;
-
-    /**
-     * @var ValidatorInterface
-     */
-    private $validator;
-
-    /**
-     * @var ExporterInterface
-     */
-    private $exporter;
-
-    /**
-     * @var CheckerInterface
-     */
-    private $checker;
+    private ClassGeneratorInterface $classGenerator;
+    private ValidatorInterface $validator;
+    private ExporterInterface $exporter;
+    private CheckerInterface $checker;
 
     public function __construct(
         ClassGeneratorInterface $classGenerator,
@@ -45,8 +30,11 @@ class SchemaClassValidationListener
         $this->checker = $checker;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function onKernelControllerArguments(
-        FilterControllerArgumentsEvent $event
+        ControllerArgumentsEvent $event
     ): void {
         $arguments = array_filter($event->getArguments(), fn ($argument) => $this->isSchemaObject($argument));
 
@@ -63,9 +51,8 @@ class SchemaClassValidationListener
         $this->validator->check($this->exporter->export($argument), $schema);
     }
 
-    public function onKernelView(
-        GetResponseForControllerResultEvent $event
-    ): void {
+    public function onKernelView(ViewEvent $event): void
+    {
         if (false === $this->isSchemaObject($event->getControllerResult())) {
             return;
         }

@@ -12,7 +12,7 @@ class SchemaGeneratorResolver
     /**
      * @var SchemaGeneratorInterface[]
      */
-    private $generators = [];
+    private array $generators = [];
 
     /**
      * @param SchemaGeneratorInterface[] $generators
@@ -24,15 +24,15 @@ class SchemaGeneratorResolver
         }
     }
 
-    public function addGenerator(SchemaGeneratorInterface $generator): void
+    final public function addGenerator(SchemaGeneratorInterface $generator): void
     {
         $this->generators[] = $generator;
     }
 
-    public function resolve(JsonSchemaInterface $schema): SchemaGeneratorInterface
+    final public function resolve(JsonSchemaInterface $schema): SchemaGeneratorInterface
     {
-        /** @var SchemaGeneratorInterface $generator */
         foreach ($this->generators as $generator) {
+            \assert($generator instanceof SchemaGeneratorInterface);
             if ($generator->supported($schema)) {
                 return $generator;
             }

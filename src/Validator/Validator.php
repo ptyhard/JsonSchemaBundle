@@ -6,17 +6,15 @@ namespace Ptyhard\JsonSchemaBundle\Validator;
 
 use JsonSchema\Constraints\Constraint;
 use Ptyhard\JsonSchemaBundle\Exception\ValidationFailedException;
+use JsonSchema\Validator as JsonSchemaValidator;
 
 class Validator implements ValidatorInterface
 {
-    /**
-     * @var \JsonSchema\Validator
-     */
-    private $schemaValidator;
+    private JsonSchemaValidator $schemaValidator;
 
     public function __construct()
     {
-        $this->schemaValidator = new \JsonSchema\Validator();
+        $this->schemaValidator = new JsonSchemaValidator();
     }
 
     public function check(array $value, array $schema): void

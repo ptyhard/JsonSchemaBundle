@@ -8,27 +8,16 @@ use Doctrine\Common\Annotations\Reader;
 use Ptyhard\JsonSchemaBundle\Annotations\SchemaFile;
 use Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorResolver;
 use Ptyhard\JsonSchemaBundle\Validator\ValidatorInterface;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 
 class SchemaFileValidationListener
 {
     private const JSON_SCHEMA_ATTR = 'json_schema.file';
 
-    /**
-     * @var Reader
-     */
-    private $annotationReader;
-
-    /**
-     * @var SchemaGeneratorResolver
-     */
-    private $schemaGeneratorResolver;
-
-    /**
-     * @var ValidatorInterface
-     */
-    private $validator;
+    private Reader $annotationReader;
+    private SchemaGeneratorResolver $schemaGeneratorResolver;
+    private ValidatorInterface $validator;
 
     public function __construct(
         Reader $annotationReader,
@@ -42,8 +31,9 @@ class SchemaFileValidationListener
 
     /**
      * @throws \ReflectionException
+     * @throws \JsonException
      */
-    public function onKernelController(FilterControllerEvent $event): void
+    public function onKernelController(ControllerEvent $event): void
     {
         $request = $event->getRequest();
         $controller = $event->getController();
@@ -73,7 +63,7 @@ class SchemaFileValidationListener
         foreach ($schemaAnnotations as $annotation) {
             if ($annotation->isRequestCheck()) {
                 $this->validator->check(
-                    json_decode($request->getContent(), true),
+                    json_decode($request->getContent(), true, 512, \JSON_THROW_ON_ERROR),
                     $this->schemaGeneratorResolver
                         ->resolve($annotation)
                         ->generate($annotation)
@@ -84,9 +74,8 @@ class SchemaFileValidationListener
         $request->attributes->set(self::JSON_SCHEMA_ATTR, $schemaAnnotations);
     }
 
-    public function onKernelView(
-        GetResponseForControllerResultEvent $event
-    ): void {
+    public function onKernelView(ViewEvent $event): void
+    {
         if (false === \is_array($event->getControllerResult())) {
             return;
         }
@@ -113,6 +102,6 @@ class SchemaFileValidationListener
 
     private function getAnnotations(array $annotations): array
     {
-        return array_filter($annotations, fn ($annotation) => $annotation instanceof SchemaFile);
+        return array_filter($annotations, static fn ($annotation) => $annotation instanceof SchemaFile);
     }
 }

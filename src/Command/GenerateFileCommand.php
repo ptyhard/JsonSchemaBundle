@@ -20,25 +20,18 @@ class GenerateFileCommand extends Command
 {
     protected static $defaultName = 'json-schema:generate:file';
 
-    /**
-     * @var WriterInterface
-     */
-    private $writer;
+    private WriterInterface $writer;
+    private ContainerBuilder $containerBuilder;
 
-    /**
-     * @var ContainerBuilder
-     */
-    private $containerBuilder;
-
-    /**
-     * GenerateJsonCommand constructor.
-     */
     public function __construct(WriterInterface $writer)
     {
         parent::__construct();
         $this->writer = $writer;
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     protected function execute(
         InputInterface $input,
         OutputInterface $output
@@ -60,7 +53,7 @@ class GenerateFileCommand extends Command
                     try {
                         $class = $parameter->getClass();
                         if (null !== $class) {
-                            $this->writer->write($parameter->getClass()->getName());
+                            $this->writer->write($class->getName());
                         }
                     } catch (GeneratorException $ge) {
                         continue;

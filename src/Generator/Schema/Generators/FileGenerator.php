@@ -11,27 +11,23 @@ use Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorInterface;
 
 class FileGenerator implements SchemaGeneratorInterface
 {
-    /**
-     * @var ?CacheInterface
-     */
-    private $cache;
-
-    /**
-     * @var string
-     */
-    private $baseFilePath;
+    private ?CacheInterface $cache;
+    private string $baseFilePath;
 
     public function __construct(string $baseFilePath)
     {
         $this->baseFilePath = $baseFilePath;
     }
 
-    public function setCache(CacheInterface $cache): void
+    final public function setCache(CacheInterface $cache): void
     {
         $this->cache = $cache;
     }
 
-    public function generate(JsonSchemaInterface $schema): array
+    /**
+     * @throws \JsonException
+     */
+    final public function generate(JsonSchemaInterface $schema): array
     {
         \assert($schema instanceof SchemaFile);
         $path = $this->baseFilePath.'/'.$schema->getFile();
@@ -43,14 +39,14 @@ class FileGenerator implements SchemaGeneratorInterface
         }
 
         $json = file_get_contents($path);
-        $data = json_decode($json, true);
+        $data = json_decode($json, true, 512, \JSON_THROW_ON_ERROR);
 
         $this->setCacheData($key, $data);
 
         return $data;
     }
 
-    public function supported(JsonSchemaInterface $schema): bool
+    final public function supported(JsonSchemaInterface $schema): bool
     {
         return $schema instanceof SchemaFile;
     }

@@ -9,24 +9,10 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class Writer implements WriterInterface
 {
-    /**
-     * @var Filesystem
-     */
-    private $filesystem;
+    private Filesystem $filesystem;
+    private ClassGeneratorInterface $classGenerator;
+    private string $baseDir;
 
-    /**
-     * @var ClassGeneratorInterface
-     */
-    private $classGenerator;
-
-    /**
-     * @var string
-     */
-    private $baseDir;
-
-    /**
-     * Writer constructor.
-     */
     public function __construct(
         Filesystem $filesystem,
         ClassGeneratorInterface $classGenerator,
@@ -37,12 +23,15 @@ class Writer implements WriterInterface
         $this->baseDir = $baseDir;
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function write(string $class): void
     {
         $schema = $this->classGenerator->generate($class);
         $filename = strtolower(substr(strrchr($class, '\\'), 1)).'.json';
         $file = $this->baseDir.\DIRECTORY_SEPARATOR.$filename;
-        $json = json_encode($schema, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES);
+        $json = json_encode($schema, \JSON_THROW_ON_ERROR | \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES);
         $this->filesystem->dumpFile($file, $json);
     }
 }

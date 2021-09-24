@@ -14,20 +14,9 @@ use Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorResolver;
 
 class ClassGenerator implements ClassGeneratorInterface
 {
-    /**
-     * @var Reader
-     */
-    private $annotationReader;
-
-    /**
-     * @var SchemaGeneratorResolver
-     */
-    private $schemaGeneratorResolver;
-
-    /**
-     * @var PropertyGeneratorResolver
-     */
-    private $propertyGeneratorResolver;
+    private Reader $annotationReader;
+    private SchemaGeneratorResolver $schemaGeneratorResolver;
+    private PropertyGeneratorResolver $propertyGeneratorResolver;
 
     public function __construct(Reader $annotationReader)
     {

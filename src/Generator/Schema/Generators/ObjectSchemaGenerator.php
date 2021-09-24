@@ -10,14 +10,14 @@ use Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorInterface;
 
 class ObjectSchemaGenerator implements SchemaGeneratorInterface
 {
-    public function generate(JsonSchemaInterface $schema): array
+    final public function generate(JsonSchemaInterface $schema): array
     {
         \assert($schema instanceof SchemaClass);
 
         return $schema->toArray();
     }
 
-    public function supported(JsonSchemaInterface $schema): bool
+    final public function supported(JsonSchemaInterface $schema): bool
     {
         return $schema instanceof SchemaClass;
     }
