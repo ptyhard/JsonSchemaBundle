@@ -17,7 +17,7 @@
         "symfony/dependency-injection": "~4.4|^5.3",
         "symfony/event-dispatcher": "~4.4|^5.3",
         "symfony/http-foundation": "~4.4|^5.3",
-        "doctrine/common": "~2.7",
+        "doctrine/common": "=>2.7",
         "justinrainbow/json-schema": "^5.2",
         "symfony/cache": "~4.4|^5.3",
         "psr/simple-cache": "^1.0",
