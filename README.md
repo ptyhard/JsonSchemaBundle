@@ -85,9 +85,3 @@ class MainController extends AbstractController
 }
 
 ```
-
-send request.
-
-![]("https://github.com/ptyhard/JsonSchemaBundle/blob/1.0/doc/request.png?raw=true")
-![]("https://github.com/ptyhard/JsonSchemaBundle/blob/1.0/doc/response.png?raw=true")
-
