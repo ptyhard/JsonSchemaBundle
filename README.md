@@ -6,7 +6,7 @@ JsonSchema Validate For Symfony Bundle.
 ## Installation
 
 ```bash 
-$ composer req ptyhard/json-schema-bundle "dev-master"
+$ composer req ptyhard/json-schema-bundle "1.0.x-dev"
 ```
 
 Add config/bundles.php
@@ -31,92 +31,63 @@ return [
 
 ptyhard_json_schema: ~
     use_jms_serializer: true # default true
-    json_file_directory: ~ # default null
-    json_write_directory: # default null
-    
+    json_file_directory: ~ # default public/json_schema    
 ```
 
 ## Usage
 
-Create Schema php class.
+Create a json schema file
 
-```php
-<?php
-// src/JsonSchema/User.php
+public/json_schema/user.json
 
-namespace App\JsonSchema;
-
-use Ptyhard\JsonSchemaBundle\Annotations\SchemaClass;
-use Ptyhard\JsonSchemaBundle\Annotations\Property;
-
-/**
-* @SchemaClass(required={"id","name"})
- */
-class User 
+```json
 {
-    /**
-     * @Property\NumberProperty("id")
-     *
-     * @var int
-     */
-    private $id;
-
-    /**
-     * @Property\StringProperty("name")
-     *
-     * @var string
-     */
-    private $name;
+  "$schema": "http://json-schema.org/draft-2020-12/schema#",
+  "title": "user data",
+  "description": "test",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string"
+    }
+  },
+  "required": ["id","name"]
 }
 
 ```
 
-Create controller class.
+Create validation controller.
 
 ```php
 <?php
 
 namespace App\Controller;
 
-
-use App\JsonSchema\User;
 use Polidog\SimpleApiBundle\Annotations\Api;
+use Ptyhard\JsonSchemaBundle\Annotations\SchemaFile;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/")
- */
-class TopController
+class MainController extends AbstractController
 {
-    /**
-     * @Route("/request/check",methods={"POST"}) 
-     * @Api(statusCode=200)
-     *
-     * @param User $user
-     * @return User
-     */
-    public function requestCheck(User $user) :User
+    #[Route('/', name: 'main', methods: 'post')]
+    #[Api(200)]
+    #[SchemaFile('user.json')]
+    final public function index(): array
     {
-        return  [];
+        return [
+            'status' => 'ok',
+        ];
     }
-
-    /**
-     * @Route("/response/check",methods={"GET"}) 
-     * @Api(statusCode=200)
-     *
-     * @return User
-     */
-    public function responseCheck() :User
-    {
-        return new User();
-    }
-
 }
+
 ```
 
-## Generate object to json schema file.
-If you need json schema file, can use generate command.
+send request.
 
-```bash
-$ bin/console json-schema:generate:file
-```
+![]("doc/request.png")
+![]("doc/response.png")
+
