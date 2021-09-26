@@ -48,12 +48,8 @@ class SchemaFileValidationListener
 
         /** @var SchemaFile[] $schemaAnnotations */
         $schemaAnnotations = array_merge(
-            $this->getAnnotations(
-                $this->annotationReader->getClassAnnotations($object)
-            ),
-            $this->getAnnotations(
-                $this->annotationReader->getMethodAnnotations($method)
-            )
+            array_map(static fn(\ReflectionAttribute $attribute) => $attribute->newInstance(), $object->getAttributes(SchemaFile::class)),
+            array_map(static fn(\ReflectionAttribute $attribute) => $attribute->newInstance(), $method->getAttributes(SchemaFile::class)),
         );
 
         if (empty($schemaAnnotations)) {
@@ -100,8 +96,4 @@ class SchemaFileValidationListener
         }
     }
 
-    private function getAnnotations(array $annotations): array
-    {
-        return array_filter($annotations, static fn ($annotation) => $annotation instanceof SchemaFile);
-    }
 }

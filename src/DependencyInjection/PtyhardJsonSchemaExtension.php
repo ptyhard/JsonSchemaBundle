@@ -26,13 +26,7 @@ class PtyhardJsonSchemaExtension extends Extension
             $jsonFileDirectory = $container->getParameter('kernel.project_dir').'/public/json_schema';
         }
 
-        $jsonWriteDirectory = $config['json_write_directory'];
-        if (null === $jsonWriteDirectory) {
-            $jsonWriteDirectory = $jsonFileDirectory;
-        }
-
         $container->setParameter('json_schema_bundle.json_file_directory', $jsonFileDirectory);
-        $container->setParameter('json_schema_bundle.json_write_directory', $jsonWriteDirectory);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yaml');

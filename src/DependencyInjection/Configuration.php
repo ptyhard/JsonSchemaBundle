@@ -20,7 +20,6 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->booleanNode('use_jms_serializer')->defaultTrue()->end()
                 ->scalarNode('json_file_directory')->defaultNull()->end()
-                ->scalarNode('json_write_directory')->defaultNull()->end()
             ->end();
 
         return $treeBuilder;

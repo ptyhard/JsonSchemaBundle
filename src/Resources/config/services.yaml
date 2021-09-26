@@ -11,99 +11,25 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.exception, priority: '%ptyhard_json_schema_bundle.exception_listener_priority%' }
 
-    Ptyhard\JsonSchemaBundle\EventListener\SchemaClassValidationListener:
-        autowire: true
-        tags:
-          - { name: kernel.event_listener, event: kernel.controller_arguments}
-          - { name: kernel.event_listener, event: kernel.view }
-
     Ptyhard\JsonSchemaBundle\EventListener\SchemaFileValidationListener:
         autowire: true
         tags:
             - { name: kernel.event_listener, event: kernel.controller  }
             - { name: kernel.event_listener, event: kernel.view }
 
-    # property generator
-
-    Ptyhard\JsonSchemaBundle\Generator\Property\PropertyGeneratorResolver:
-        autowire: true
-        arguments:
-            $generators:
-                - '@Ptyhard\JsonSchemaBundle\Generator\Property\Generators\DefaultPropertyGenerator'
-                - '@Ptyhard\JsonSchemaBundle\Generator\Property\Generators\CollectionPropertyGenerator'
-
-    Ptyhard\JsonSchemaBundle\Generator\Property\Generators\DefaultPropertyGenerator:
-        autowire: true
-        arguments:
-            $supported:
-                - 'Ptyhard\JsonSchemaBundle\Annotations\Property\StringProperty'
-                - 'Ptyhard\JsonSchemaBundle\Annotations\Property\NumberProperty'
-                - 'Ptyhard\JsonSchemaBundle\Annotations\Property\ObjectProperty'
-                - 'Ptyhard\JsonSchemaBundle\Annotations\Property\ArrayProperty'
-
-    Ptyhard\JsonSchemaBundle\Generator\Property\Generators\CollectionPropertyGenerator:
-        autowire: true
-
     # schema generator
-
-    Ptyhard\JsonSchemaBundle\Generator\Schema\Generators\ObjectSchemaGenerator:
-        autowire: true
-
     Ptyhard\JsonSchemaBundle\Generator\Schema\Generators\FileGenerator:
-        autowire: true
-        arguments:
-            $baseFilePath: '%json_schema_bundle.json_file_directory%'
+      autowire: true
+      arguments:
+        $baseFilePath: '%json_schema_bundle.json_file_directory%'
 
     Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorResolver:
-        arguments:
-            $generators:
-              - '@Ptyhard\JsonSchemaBundle\Generator\Schema\Generators\ObjectSchemaGenerator'
-              - '@Ptyhard\JsonSchemaBundle\Generator\Schema\Generators\FileGenerator'
-
-    # Generator
-    Ptyhard\JsonSchemaBundle\Generator\ClassGenerator:
-        autowire: true
-        calls:
-            - method: setSchemaGeneratorResolver
-              arguments:
-                  - '@Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorResolver'
-            - method: setPropertyGeneratorResolver
-              arguments:
-                  - '@Ptyhard\JsonSchemaBundle\Generator\Property\PropertyGeneratorResolver'
-
-    # Writer
-    Ptyhard\JsonSchemaBundle\FileWriter\Writer:
-        autowire: true
-        arguments:
-            $baseDir: '%json_schema_bundle.json_write_directory%'
+      arguments:
+        $generators:
+          - '@Ptyhard\JsonSchemaBundle\Generator\Schema\Generators\FileGenerator'
 
 
     Ptyhard\JsonSchemaBundle\Validator\Validator:
         autowire: true
 
-    Ptyhard\JsonSchemaBundle\SchemaObject\Exporter:
-        autowire: true
-
-    Ptyhard\JsonSchemaBundle\SchemaObject\Factory:
-        autowire: true
-
-    Ptyhard\JsonSchemaBundle\SchemaObject\Checker:
-        autowire: true
-
-    Ptyhard\JsonSchemaBundle\ArgumentResolver\SchemaClassResolver:
-        autowire: true
-        tags:
-            - { name: controller.argument_value_resolver, priority: 50 }
-
-    # command
-    Ptyhard\JsonSchemaBundle\Command\GenerateFileCommand:
-        autowire: true
-        tags:
-          - { name: 'console.command', command: 'json-schema:generate:file' }
-
     Ptyhard\JsonSchemaBundle\Validator\ValidatorInterface: '@Ptyhard\JsonSchemaBundle\Validator\Validator'
-    Ptyhard\JsonSchemaBundle\SchemaObject\FactoryInterface: '@Ptyhard\JsonSchemaBundle\SchemaObject\Factory'
-    Ptyhard\JsonSchemaBundle\SchemaObject\ExporterInterface: '@Ptyhard\JsonSchemaBundle\SchemaObject\Exporter'
-    Ptyhard\JsonSchemaBundle\SchemaObject\CheckerInterface: '@Ptyhard\JsonSchemaBundle\SchemaObject\Checker'
-    Ptyhard\JsonSchemaBundle\Generator\ClassGeneratorInterface: '@Ptyhard\JsonSchemaBundle\Generator\ClassGenerator'
-    Ptyhard\JsonSchemaBundle\FileWriter\WriterInterface: '@Ptyhard\JsonSchemaBundle\FileWriter\Writer'

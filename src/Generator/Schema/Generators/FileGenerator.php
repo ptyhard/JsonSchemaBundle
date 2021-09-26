@@ -11,7 +11,7 @@ use Ptyhard\JsonSchemaBundle\Generator\Schema\SchemaGeneratorInterface;
 
 class FileGenerator implements SchemaGeneratorInterface
 {
-    private ?CacheInterface $cache;
+    private ?CacheInterface $cache = null;
     private string $baseFilePath;
 
     public function __construct(string $baseFilePath)

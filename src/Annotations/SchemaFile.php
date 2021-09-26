@@ -4,33 +4,26 @@ declare(strict_types=1);
 
 namespace Ptyhard\JsonSchemaBundle\Annotations;
 
-/**
- * @Annotation
- */
+#[\Attribute]
 class SchemaFile implements JsonSchemaInterface
 {
-    /**
-     * @var string
-     */
-    private $file;
+    private string $file;
 
     /**
-     * @var array
+     * @var string[] request|response
      */
-    private $type;
+    private array $type;
 
-    public function __construct(array $params)
+    /**
+     * @param string $file
+     * @param string[] $type
+     */
+    public function __construct(string $file, array $type = ['request'])
     {
-        if (isset($params['value'])) {
-            $this->file = $params['value'];
-        }
-
-        foreach (['file', 'type'] as $target) {
-            if (isset($params[$target])) {
-                $this->$target = $params[$target];
-            }
-        }
+        $this->file = $file;
+        $this->type = $type;
     }
+
 
     public function getFile(): string
     {
